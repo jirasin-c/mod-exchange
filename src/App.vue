@@ -1,6 +1,6 @@
 <script setup>
 import { ref, reactive, computed } from 'vue'
-const arrNotes = ref(['Go to school', 'Sleep', 'smile', 'watching YOUTUBE', 'WatCHiNG netfliX'])
+const arrNotes = ref([])
 const newNotes = ref('')
 const searchNotes = ref('')
 // const deleteNotes = ref('')
