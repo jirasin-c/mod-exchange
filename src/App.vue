@@ -16,6 +16,9 @@ const search = (s) => {
   }
   return false
 }
+const filterNotes = computed(() => {
+  return arrNotes.value.filter((note) => note.includes(searchNotes.value))
+})
 const noteSuccess = (i) => {
   console.log(arrNotes[i]);
   if (i > -1) {
@@ -23,6 +26,32 @@ const noteSuccess = (i) => {
   }
   searchNotes.value = ''
   document.querySelector('#search').focus()
+}
+
+const baseUSD = {
+  USD: 1,
+  THB: 32.4575,
+  JYP: 115.688,
+  CNY: 6.35765,
+  KRW: 1197.14
+}
+const arrCurrency = ref([
+  'THB', 'USD', 'JYP', 'CNY', 'KRW'
+])
+
+const currenFrom = ref('')
+const currenTo = ref('')
+const amount = ref()
+const tranferAmount = ref()
+const calExchange = (from, to) => {
+  tranferAmount.value = (amount.value * baseUSD[`${to}`]) / baseUSD[`${from}`]
+}
+
+const switchCurren = (from, to) => {
+  let swap = from
+  let swap2 = to
+  currenFrom.value = swap2
+  currenTo.value = swap
 }
 </script>
              <!-- :style="arrNotes.value === 0 ? 'display: none' : 'display: block'"     -->
@@ -73,7 +102,7 @@ const noteSuccess = (i) => {
     </div>-->
   </div>
 
-  <div class="container mx-auto flex justify-center">
+  <!-- <div class="container mx-auto flex justify-center">
     <div v-show="arrNotes.length > 0" class="p-10 card bg-base-200 mb-10">
       <div class>
         Filter note:
@@ -82,7 +111,11 @@ const noteSuccess = (i) => {
       <div class>
         <ul>
           <li v-for="(note, index) in arrNotes" :key="index" v-show="search(note)">
-            <button @click="noteSuccess(index)" :key="index" class="btn btn-success mt-2">Success</button>
+            <button
+              @click="noteSuccess(index)"
+              :key="index"
+              class="btn btn-sm btn-success mt-2"
+            >Success</button>
             {{ note }}
           </li>
         </ul>
@@ -104,32 +137,57 @@ const noteSuccess = (i) => {
         <button @click="addNotes" class="btn btn-primary ml-2">Add note</button>
       </div>
     </div>
-  </div>
+  </div>-->
 
   <div class="container mx-auto flex justify-center mt-10" id="exchange">
-    <div class="p-10 card bg-base-200">
-      <div class>
-        Amount:
+    <div class="p-10 card bg-base-200 flex justify-center">
+      <label class="input-group">
+        <span>Amount</span>
         <input
-          type="text"
-          v-model="newNotes"
-          id="add"
-          @keydown.enter="addNotes"
-          class="input"
+          type="number"
+          placeholder="type amount"
+          v-model="amount"
+          class="input input-bordered"
         />
-        <button @click="addNotes" class="btn btn-info ml-2">Transfer</button>
+        <span>{{ currenFrom }}</span>
+      </label>
+      <div class="container mx-auto flex justify-center flex">
+        <div class="form-control mr-10">
+          <label class="label">
+            <span class="label-text">From</span>
+          </label>
+          <select name id v-model="currenFrom" class="select select-bordered w-full">
+            <option v-for="currency in arrCurrency">{{ currency }}</option>
+          </select>
+        </div>
+        <div>
+          <button
+            @click="switchCurren(currenFrom, currenTo)"
+            class="btn btn-info ml-2 mx-auto"
+          >Switch</button>
+        </div>
+        <div class="form-control">
+          <label class="label">
+            <span class="label-text">To</span>
+          </label>
+          <select name id v-model="currenTo" class="select select-bordered w-full">
+            <option v-for="currency in arrCurrency">{{ currency }}</option>
+          </select>
+        </div>
       </div>
+      <p v-show="tranferAmount > 0">{{ tranferAmount }} {{ currenTo }}</p>
+      <button @click="calExchange(currenFrom, currenTo)" class="btn btn-info ml-2 mx-auto">Transfer</button>
     </div>
   </div>
 
-  <div class="container mx-auto flex justify-center mt-10" id="card-flip">
+  <!-- <div class="container mx-auto flex justify-center mt-10" id="card-flip">
     <div class="p-10 card bg-base-200">
       <h1>
         CARD FLIP
         <span class="text-red-500">COMING SOON!</span>
       </h1>
     </div>
-  </div>
+  </div>-->
 </template>
  
 <style>
