@@ -102,7 +102,7 @@ const switchCurren = (from, to) => {
     </div>-->
   </div>
 
-  <!-- <div class="container mx-auto flex justify-center">
+  <div class="container mx-auto flex justify-center">
     <div v-show="arrNotes.length > 0" class="p-10 card bg-base-200 mb-10">
       <div class>
         Filter note:
@@ -137,7 +137,7 @@ const switchCurren = (from, to) => {
         <button @click="addNotes" class="btn btn-primary ml-2">Add note</button>
       </div>
     </div>
-  </div>-->
+  </div>
 
   <div class="container mx-auto flex justify-center mt-10" id="exchange">
     <div class="p-10 card bg-base-200 flex justify-center">
@@ -151,7 +151,8 @@ const switchCurren = (from, to) => {
         />
         <span>{{ currenFrom }}</span>
       </label>
-      <div class="container mx-auto flex justify-center flex">
+
+      <div class="container mx-auto justify-center flex">
         <div class="form-control mr-10">
           <label class="label">
             <span class="label-text">From</span>
@@ -160,12 +161,14 @@ const switchCurren = (from, to) => {
             <option v-for="currency in arrCurrency">{{ currency }}</option>
           </select>
         </div>
-        <div>
+
+        <div class="form-control mr-10 mt-10">
           <button
             @click="switchCurren(currenFrom, currenTo)"
-            class="btn btn-info ml-2 mx-auto"
+            class="btn btn-secondary ml-2 mx-auto"
           >Switch</button>
         </div>
+
         <div class="form-control">
           <label class="label">
             <span class="label-text">To</span>
@@ -175,19 +178,24 @@ const switchCurren = (from, to) => {
           </select>
         </div>
       </div>
-      <p v-show="tranferAmount > 0">{{ tranferAmount }} {{ currenTo }}</p>
-      <button @click="calExchange(currenFrom, currenTo)" class="btn btn-info ml-2 mx-auto">Transfer</button>
+      <div class="justify-center flex mt-5">
+        <p v-show="tranferAmount > 0" class="text-xl">{{ tranferAmount }} {{ currenTo }}</p>
+      </div>
+      <button
+        @click="calExchange(currenFrom, currenTo)"
+        class="btn btn-primary ml-1 mt-5 mx-auto"
+      >Transfer</button>
     </div>
   </div>
 
-  <!-- <div class="container mx-auto flex justify-center mt-10" id="card-flip">
+  <div class="container mx-auto flex justify-center mt-10" id="card-flip">
     <div class="p-10 card bg-base-200">
       <h1>
         CARD FLIP
         <span class="text-red-500">COMING SOON!</span>
       </h1>
     </div>
-  </div>-->
+  </div>
 </template>
  
 <style>
