@@ -88,7 +88,7 @@ const switchCurren = (from, to) => {
           v-model="amount"
           class="input input-bordered"
         />
-        <span>{{ currenFrom }}</span>
+        <span>{{ currenFrom }}sssssssssssss</span>
       </label>
 
       <div class="container mx-auto justify-center flex">
