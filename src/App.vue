@@ -80,7 +80,10 @@ const switchCurren = (from, to) => {
               maxlength="10"
             />
             <span>{{ currenTo }}</span>
-            <button @click="calExchange(currenFrom, currenTo)" class="btn btn-info mx-auto">Transfer</button>
+            <button
+              @click="calExchange(currenFrom, currenTo)"
+              class="btn btn-info mx-auto"
+            >Transfer sssssssssss</button>
           </label>
         </div>
       </div>
