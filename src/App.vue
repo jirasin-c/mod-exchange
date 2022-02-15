@@ -1,5 +1,6 @@
 <script setup>
 import { ref, reactive, computed } from 'vue'
+import Swal from 'sweetalert2'
 
 const baseUSD = reactive({
   USD: 1,
@@ -16,8 +17,17 @@ const tranferAmount = ref('')
 const calExchange = (from, to) => {
   // console.log(`from ${from} : to ${to} : amount ${amount.value}`)
   // console.log(baseUSD[`${to}`])
-  tranferAmount.value = (amount.value * baseUSD[`${to}`]) / baseUSD[`${from}`]
-  document.getElementById("result").value = tranferAmount.value
+  console.log(amount.value != '')
+  if (amount.value != '') {
+    tranferAmount.value = (amount.value * baseUSD[`${to}`]) / baseUSD[`${from}`]
+    document.getElementById("result").value = tranferAmount.value
+  } else {
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Please fill out the information completely.',
+    })
+  }
 }
 
 const switchCurren = (from, to) => {
@@ -25,6 +35,7 @@ const switchCurren = (from, to) => {
   let swap2 = to
   currenFrom.value = swap2
   currenTo.value = swap
+  calExchange(swap2, swap)
 }
 </script>
 
@@ -35,7 +46,7 @@ const switchCurren = (from, to) => {
     </div>
     <div class="flex-1 px-2 mx-2">
       <div class="items-stretch hidden lg:flex">
-        <a class="btn btn-ghost btn-sm rounded-btn" href="#exchange">Exchange</a>
+        <a class="btn btn-ghost btn-sm rounded-btn" href="#exchange">Exchanges</a>
         <a class="btn btn-ghost btn-sm rounded-btn" href="#card-flip">Card Flip</a>
       </div>
     </div>
@@ -80,9 +91,23 @@ const switchCurren = (from, to) => {
               maxlength="10"
             />
             <span>{{ currenTo }}</span>
-            <button @click="calExchange(currenFrom, currenTo)" class="btn btn-info mx-auto">Transfer</button>
+            <button @click="calExchange(currenFrom, currenTo)" class="btn btn-info mx-auto">Convert</button>
           </label>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container mx-auto flex justify-center mt-8">
+    <div class="px-10 card bg-base-200 flex">
+      <h1 class="flex justify-center mt-3">Exchange Rates</h1>
+      <div class="grid grid-cols-2 gap-4 mt-3">
+        <p class="px-16 col-start-1">Currency</p>
+        <p class="px-16 col-start-2">Amount</p>
+      </div>
+      <div class="grid grid-cols-2 gap-4 mt-3 mb-3 text-center" v-for="(value, key) in baseUSD">
+        <p>{{ key }}</p>
+        <p>{{ value }}</p>
       </div>
     </div>
   </div>
