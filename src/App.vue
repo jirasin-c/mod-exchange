@@ -24,7 +24,7 @@ const calExchange = (from, to) => {
   } else {
     Swal.fire({
       icon: 'error',
-      title: 'ขอภัย...',
+      title: 'ขออภัย...',
       text: 'โปรดกรอกข้อมูลในช่องว่างให้เรียบร้อย',
     })
   }
@@ -124,6 +124,5 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 input[id="result"] {
   pointer-events: none;
-  background: #dddddd;
 }
 </style>
