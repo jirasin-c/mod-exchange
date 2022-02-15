@@ -89,7 +89,6 @@ const switchCurren = (from, to) => {
               pointer-events="none"
               class="input input-bordered"
               maxlength="10"
-              disabled="true"
             />
             <span>{{ currenTo }}</span>
             <button
