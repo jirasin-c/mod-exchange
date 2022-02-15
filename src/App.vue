@@ -46,7 +46,7 @@ const switchCurren = (from, to) => {
     </div>
     <div class="flex-1 px-2 mx-2">
       <div class="items-stretch hidden lg:flex">
-        <a class="btn btn-ghost btn-sm rounded-btn" href="#exchange">Exchange</a>
+        <a class="btn btn-ghost btn-sm rounded-btn" href="#exchange">Exchanges</a>
         <a class="btn btn-ghost btn-sm rounded-btn" href="#card-flip">Card Flip</a>
       </div>
     </div>
