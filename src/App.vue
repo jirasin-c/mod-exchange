@@ -89,6 +89,7 @@ const switchCurren = (from, to) => {
               pointer-events="none"
               class="input input-bordered"
               maxlength="10"
+              disabled="true"
             />
             <span>{{ currenTo }}</span>
             <button
@@ -124,5 +125,6 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 input[id="result"] {
   pointer-events: none;
+  background: #dddddd;
 }
 </style>
