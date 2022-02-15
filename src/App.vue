@@ -2,14 +2,33 @@
 import { ref, reactive, computed } from 'vue'
 import Swal from 'sweetalert2'
 
-const baseUSD = reactive({
-  USD: 1,
-  THB: 32.4575,
-  JYP: 115.688,
-  CNY: 6.35765,
-  KRW: 1197.14
-})
-
+const baseUSD = reactive([{
+  name: 'USA',
+  rate: 1,
+  img: "../public/images/USA.png"
+},
+{
+  name: 'THA',
+  rate: 32.4575,
+  img: "../public/images/THA.png"
+}
+  ,
+{
+  name: 'JPY',
+  rate: 115.688,
+  img: "../public/images/JPY.png"
+},
+{
+  name: 'CNY',
+  rate: 6.35765,
+  img: "../public/images/CNY.png"
+},
+{
+  name: 'KRW',
+  rate: 1197.141,
+  img: "../public/images/KRW.png"
+}
+])
 const currenFrom = ref('')
 const currenTo = ref('')
 const amount = ref('')
@@ -18,8 +37,14 @@ const calExchange = (from, to) => {
   // console.log(`from ${from} : to ${to} : amount ${amount.value}`)
   // console.log(baseUSD[`${to}`])
   console.log(amount.value != '')
+  console.log(baseUSD);
+  let countryTo = baseUSD.filter(value => value.name == [`${to}`])[0]
+  let countryFrom = baseUSD.filter(value => value.name == [`${from}`])[0]
+  console.log(countryTo.rate);
+  console.log(countryFrom.rate);
+  // baseUSD.filter(value=> value.name[`${to}`] )
   if (amount.value != '') {
-    tranferAmount.value = (amount.value * baseUSD[`${to}`]) / baseUSD[`${from}`]
+    tranferAmount.value = (amount.value * countryTo.rate) / countryFrom.rate
     document.getElementById("result").value = tranferAmount.value
   } else {
     Swal.fire({
@@ -40,17 +65,6 @@ const switchCurren = (from, to) => {
 </script>
 
 <template>
-  <div class="navbar mb-2 shadow-lg bg-neutral text-neutral-content rounded-box">
-    <div class="flex-none px-2 mx-2">
-      <span class="text-lg font-bold">Mod X Change</span>
-    </div>
-    <div class="flex-1 px-2 mx-2">
-      <div class="items-stretch hidden lg:flex">
-        <a class="btn btn-ghost btn-sm rounded-btn" href="#exchange">Exchanges</a>
-        <a class="btn btn-ghost btn-sm rounded-btn" href="#card-flip">Card Flip</a>
-      </div>
-    </div>
-  </div>
   <div class="container mx-auto flex justify-center mt-10" id="exchange">
     <div class="p-10 card bg-base-200 flex justify-center">
       <label class="input-group">
@@ -72,11 +86,11 @@ const switchCurren = (from, to) => {
           <span class="label-text">To</span>
         </label>
         <select name id v-model="currenFrom" class="select select-bordered w-full">
-          <option v-for="(value, key) in baseUSD">{{ key }}</option>
+          <option v-for="(value, key, index) in baseUSD">{{ value.name }}</option>
         </select>
         <button @click="switchCurren(currenFrom, currenTo)" class="btn btn-secondary">Switch</button>
         <select name id v-model="currenTo" class="select select-bordered w-full">
-          <option v-for="(value, key) in baseUSD">{{ key }}</option>
+          <option v-for="(value, key, index) in baseUSD">{{ value.name }}</option>
         </select>
         <div class="form-control col-span-3">
           <label class="label place-content-center">
@@ -108,9 +122,19 @@ const switchCurren = (from, to) => {
         <p class="px-16 col-start-1">Currency</p>
         <p class="px-16 col-start-2">Amount</p>
       </div>
-      <div class="grid grid-cols-2 gap-4 mt-3 mb-3 text-center" v-for="(value, key) in baseUSD">
-        <p>{{ key }}</p>
-        <p>{{ value }}</p>
+      <div
+        class="grid grid-cols-2 gap-4 mt-3 mb-3 text-center"
+        v-for="(value, key, index) in baseUSD"
+      >
+        <p>
+          <span class="avatar">
+            <span class="w-8 rounded flex items-center mr-10">
+              <img :src="`${value.img}`" class="mr-2" />
+              <p>{{ value.name }}</p>
+            </span>
+          </span>
+        </p>
+        <p>{{ value.rate }}</p>
       </div>
     </div>
   </div>
