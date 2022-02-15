@@ -40,44 +40,6 @@ const switchCurren = (from, to) => {
       </div>
     </div>
   </div>
-
-  <div class="container mx-auto flex justify-center">
-    <div v-show="arrNotes.length > 0" class="p-10 card bg-base-200 mb-10">
-      <div class>
-        Filter note:
-        <input type="text" v-model="searchNotes" class="input" id="search" />
-      </div>
-      <div class>
-        <ul>
-          <li v-for="(note, index) in arrNotes" :key="index" v-show="search(note)">
-            <button
-              @click="noteSuccess(index)"
-              :key="index"
-              class="btn btn-sm btn-success mt-2"
-            >Success</button>
-            {{ note }}
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <div class="container mx-auto flex justify-center">
-    <div class="p-10 card bg-base-200">
-      <div class>
-        New note:
-        <input
-          type="text"
-          v-model="newNotes"
-          id="add"
-          @keydown.enter="addNotes"
-          class="input"
-        />
-        <button @click="addNotes" class="btn btn-primary ml-2">Add note</button>
-      </div>
-    </div>
-  </div>
-
   <div class="container mx-auto flex justify-center mt-10" id="exchange">
     <div class="p-10 card bg-base-200 flex justify-center">
       <label class="input-group">
@@ -88,29 +50,37 @@ const switchCurren = (from, to) => {
           v-model="amount"
           class="input input-bordered"
         />
-        <span>{{ currenFrom }}sssssssssssss</span>
+        <span>{{ currenFrom }}</span>
       </label>
+      <div class="grid grid-cols-3 gap-x-5">
+        <label class="label">
+          <span class="label-text">From</span>
+        </label>
 
-      <div class="container mx-auto justify-center flex">
-        <div class="form-control mr-10">
-          <label class="label">
-            <span class="label-text">From</span>
+        <label class="label col-start-3">
+          <span class="label-text">To</span>
+        </label>
+        <select name id v-model="currenFrom" class="select select-bordered w-full">
+          <option v-for="(value, key) in baseUSD">{{ key }}</option>
+        </select>
+        <button @click="switchCurren(currenFrom, currenTo)" class="btn btn-info">Switch</button>
+        <select name id v-model="currenTo" class="select select-bordered w-full">
+          <option v-for="(value, key) in baseUSD">{{ key }}</option>
+        </select>
+        <div class="form-control col-span-3">
+          <label class="label place-content-center">
+            <span class="label-text">แปลงแล้ว</span>
           </label>
-          <select name id v-model="currenFrom" class="select select-bordered w-full">
-            <option v-for="currency in arrCurrency">{{ currency }}</option>
-          </select>
-        </div>
-
-        <div class="form-control mr-10 mt-10">
-          <button
-            @click="switchCurren(currenFrom, currenTo)"
-            class="btn btn-secondary ml-2 mx-auto"
-          >Switch</button>
-        </div>
-
-        <div class="form-control">
-          <label class="label">
-            <span class="label-text">To</span>
+          <label class="input-group input-group-md place-content-center">
+            <input
+              type="number"
+              id="result"
+              pointer-events="none"
+              class="input input-bordered"
+              maxlength="10"
+            />
+            <span>{{ currenTo }}</span>
+            <button @click="calExchange(currenFrom, currenTo)" class="btn btn-info mx-auto">Transfer</button>
           </label>
         </div>
       </div>
