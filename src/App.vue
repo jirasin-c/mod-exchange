@@ -24,8 +24,8 @@ const calExchange = (from, to) => {
   } else {
     Swal.fire({
       icon: 'error',
-      title: 'Oops...',
-      text: 'Please fill out the information completely.',
+      title: 'ขอภัย...',
+      text: 'โปรดกรอกข้อมูลในช่องว่างให้เรียบร้อย',
     })
   }
 }
@@ -74,7 +74,7 @@ const switchCurren = (from, to) => {
         <select name id v-model="currenFrom" class="select select-bordered w-full">
           <option v-for="(value, key) in baseUSD">{{ key }}</option>
         </select>
-        <button @click="switchCurren(currenFrom, currenTo)" class="btn btn-info">Switch</button>
+        <button @click="switchCurren(currenFrom, currenTo)" class="btn btn-secondary">Switch</button>
         <select name id v-model="currenTo" class="select select-bordered w-full">
           <option v-for="(value, key) in baseUSD">{{ key }}</option>
         </select>
@@ -91,7 +91,10 @@ const switchCurren = (from, to) => {
               maxlength="10"
             />
             <span>{{ currenTo }}</span>
-            <button @click="calExchange(currenFrom, currenTo)" class="btn btn-info mx-auto">Convert</button>
+            <button
+              @click="calExchange(currenFrom, currenTo)"
+              class="btn btn-primary mx-auto"
+            >Convert</button>
           </label>
         </div>
       </div>
