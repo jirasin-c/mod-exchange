@@ -5,7 +5,7 @@ import Swal from 'sweetalert2'
 const baseUSD = reactive({
   USD: 1,
   THB: 32.4575,
-  JYP: 115.688,
+  JPY: 115.688,
   CNY: 6.35765,
   KRW: 1197.14,
 })
