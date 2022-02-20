@@ -1,70 +1,102 @@
 <script setup>
-import { ref, reactive, computed } from 'vue'
-import Swal from 'sweetalert2'
+import { ref, reactive, computed } from "vue";
+import Swal from "sweetalert2";
 
-const baseUSD = reactive([{
-  name: 'USA',
-  rate: 1,
-  img: "../public/images/USA.png"
-},
-{
-  name: 'THA',
-  rate: 32.4575,
-  img: "../public/images/THA.png"
-}
-  ,
-{
-  name: 'JPY',
-  rate: 115.688,
-  img: "../public/images/JPY.png"
-},
-{
-  name: 'CNY',
-  rate: 6.35765,
-  img: "../public/images/CNY.png"
-},
-{
-  name: 'KRW',
-  rate: 1197.141,
-  img: "../public/images/KRW.png"
-}
-])
-const currenFrom = ref('')
-const currenTo = ref('')
-const amount = ref('')
-const tranferAmount = ref('')
+const baseUSD = reactive([
+  {
+    name: "USA",
+    rate: 1,
+    img: "images/USA.png",
+  },
+  {
+    name: "THA",
+    rate: 32.4575,
+    img: "images/THA.png",
+  },
+  {
+    name: "JPY",
+    rate: 115.688,
+    img: "images/JPY.png",
+  },
+  {
+    name: "CNY",
+    rate: 6.35765,
+    img: "images/CNY.png",
+  },
+  {
+    name: "KRW",
+    rate: 1197.141,
+    img: "images/KRW.png",
+  },
+]);
+const crypto = reactive([
+  {
+    name: "ETH",
+    rate: 0.000379,
+    img: "images/ETH.png",
+  },
+  {
+    name: "BTC",
+    rate: 0.0000261,
+    img: "images/BTC.png",
+  },
+  {
+    name: "DOGE",
+    rate: 13.68,
+    img: "images/DOGE.png",
+  },
+  {
+    name: "BNB",
+    rate: 0.002623,
+    img: "images/BNB.png",
+  },
+]);
+
+const currenFrom = ref("");
+const currenTo = ref("");
+const amount = ref("");
+const tranferAmount = ref("");
 const calExchange = (from, to) => {
   // console.log(`from ${from} : to ${to} : amount ${amount.value}`)
   // console.log(baseUSD[`${to}`])
-  console.log(amount.value != '')
+  console.log(amount.value != "");
   console.log(baseUSD);
-  let countryTo = baseUSD.filter(value => value.name == [`${to}`])[0]
-  let countryFrom = baseUSD.filter(value => value.name == [`${from}`])[0]
+  let countryTo = baseUSD.filter((value) => value.name == [`${to}`])[0];
+  let countryFrom = baseUSD.filter((value) => value.name == [`${from}`])[0];
   console.log(countryTo.rate);
   console.log(countryFrom.rate);
   // baseUSD.filter(value=> value.name[`${to}`] )
-  if (amount.value != '') {
-    tranferAmount.value = (amount.value * countryTo.rate) / countryFrom.rate
-    document.getElementById("result").value = tranferAmount.value
+  if (amount.value != "") {
+    tranferAmount.value = (amount.value * countryTo.rate) / countryFrom.rate;
+    document.getElementById("result").value = tranferAmount.value;
   } else {
     Swal.fire({
-      icon: 'error',
-      title: 'ขออภัย...',
-      text: 'โปรดกรอกข้อมูลในช่องว่างให้เรียบร้อย',
-    })
+      icon: "error",
+      title: "ขออภัย...",
+      text: "โปรดกรอกข้อมูลในช่องว่างให้เรียบร้อย",
+    });
   }
-}
+};
 
 const switchCurren = (from, to) => {
-  let swap = from
-  let swap2 = to
-  currenFrom.value = swap2
-  currenTo.value = swap
-  calExchange(swap2, swap)
-}
+  let swap = from;
+  let swap2 = to;
+  currenFrom.value = swap2;
+  currenTo.value = swap;
+  calExchange(swap2, swap);
+};
+const remainingExchange = computed(() =>
+  baseUSD.filter((currency) => currency.name != currenFrom.value)
+);
+const isToggle = ref(false);
+const showCrypto = () => (isToggle.value = !isToggle.value);
 </script>
 
 <template>
+  <div style="text-align: center; margin-top: 2rem">
+    <button class="btn btn-info" @click="showCrypto">cryptocurrency</button>
+  </div>
+
   <div class="container mx-auto flex justify-center mt-10" id="exchange">
     <div class="p-10 card bg-base-200 flex justify-center">
       <label class="input-group">
@@ -85,12 +117,31 @@ const switchCurren = (from, to) => {
         <label class="label col-start-3">
           <span class="label-text">To</span>
         </label>
-        <select name id v-model="currenFrom" class="select select-bordered w-full">
-          <option v-for="(value, key, index) in baseUSD">{{ value.name }}</option>
+        <select
+          name
+          id
+          v-model="currenFrom"
+          class="select select-bordered w-full"
+        >
+          <option v-for="(value, key, index) in baseUSD">
+            {{ value.name }}
+          </option>
         </select>
-        <button @click="switchCurren(currenFrom, currenTo)" class="btn btn-secondary">Switch</button>
-        <select name id v-model="currenTo" class="select select-bordered w-full">
-          <option v-for="(value, key, index) in baseUSD">{{ value.name }}</option>
+        <button
+          @click="switchCurren(currenFrom, currenTo)"
+          class="btn btn-secondary"
+        >
+          Switch
+        </button>
+        <select
+          name
+          id
+          v-model="currenTo"
+          class="select select-bordered w-full"
+        >
+          <option v-for="(value, key, index) in remainingExchange">
+            {{ value.name }}
+          </option>
         </select>
         <div class="form-control col-span-3">
           <label class="label place-content-center">
@@ -108,7 +159,9 @@ const switchCurren = (from, to) => {
             <button
               @click="calExchange(currenFrom, currenTo)"
               class="btn btn-primary mx-auto"
-            >Convert</button>
+            >
+              Convert
+            </button>
           </label>
         </div>
       </div>
@@ -125,6 +178,7 @@ const switchCurren = (from, to) => {
       <div
         class="grid grid-cols-2 gap-4 mt-3 mb-3 text-center"
         v-for="(value, key, index) in baseUSD"
+        v-if="!isToggle"
       >
         <p>
           <span class="avatar">
@@ -134,12 +188,43 @@ const switchCurren = (from, to) => {
             </span>
           </span>
         </p>
-        <p>{{ value.rate }}</p>
+        <p>
+          {{
+            new Intl.NumberFormat("en-US", {
+              style: "currency",
+              currency: "USD",
+              minimumFractionDigits: 5,
+            }).format(value.rate)
+          }}
+        </p>
+      </div>
+      <div
+        class="grid grid-cols-2 gap-4 mt-3 mb-3 text-center"
+        v-for="(value, key, index) in crypto"
+        v-else
+      >
+        <p>
+          <span class="avatar">
+            <span class="w-8 rounded flex items-center mr-10">
+              <img :src="`${value.img}`" class="mr-2" />
+              <p>{{ value.name }}</p>
+            </span>
+          </span>
+        </p>
+        <p>
+          {{
+            new Intl.NumberFormat("en-US", {
+              style: "currency",
+              currency: "USD",
+              minimumFractionDigits: 5,
+            }).format(value.rate)
+          }}
+        </p>
       </div>
     </div>
   </div>
 </template>
- 
+
 <style>
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
