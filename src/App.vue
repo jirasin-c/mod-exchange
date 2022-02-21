@@ -10,10 +10,10 @@ const baseUSD = reactive({
   KRW: 1197.14,
 })
 
-const currenFrom = ref('')
-const currenTo = ref('')
-const amount = ref('')
-const tranferAmount = ref('')
+const currenFrom = ref("");
+const currenTo = ref("");
+const amount = ref("");
+const tranferAmount = ref("");
 const calExchange = (from, to) => {
   // console.log(`from ${from} : to ${to} : amount ${amount.value}`)
   // console.log(baseUSD[`${to}`])
