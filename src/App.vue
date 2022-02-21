@@ -4,12 +4,12 @@ import Swal from "sweetalert2";
 
 const baseUSD = reactive([
   {
-    name: "USA",
+    name: "USD",
     rate: 1,
     img: "images/USA.png",
   },
   {
-    name: "THA",
+    name: "THB",
     rate: 32.4575,
     img: "images/THB.png",
   },
@@ -192,7 +192,7 @@ const showCrypto = () => (isToggle.value = !isToggle.value);
           {{
             new Intl.NumberFormat("en-US", {
               style: "currency",
-              currency: "USD",
+              currency: `${value.name}`,
               minimumFractionDigits: 5,
             }).format(value.rate)
           }}
