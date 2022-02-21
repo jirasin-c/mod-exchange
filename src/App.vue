@@ -63,8 +63,8 @@ const calExchange = (from, to) => {
   console.log(baseUSD);
   let countryTo = baseUSD.filter((value) => value.name == [`${to}`])[0];
   let countryFrom = baseUSD.filter((value) => value.name == [`${from}`])[0];
-  console.log(countryTo.rate);
-  console.log(countryFrom.rate);
+  // console.log(countryTo.rate);
+  // console.log(countryFrom.rate);
   // baseUSD.filter(value=> value.name[`${to}`] )
   if (amount.value != "") {
     tranferAmount.value = (amount.value * countryTo.rate) / countryFrom.rate;
