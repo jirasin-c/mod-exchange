@@ -2,6 +2,7 @@
 import { ref, reactive, computed } from "vue";
 import Swal from "sweetalert2";
 
+//data currency
 const baseUSD = reactive([
   {
     name: "USD",
@@ -52,13 +53,16 @@ const crypto = reactive([
   },
 ]);
 
+//ref var for v-model
 const currenFrom = ref("");
 const currenTo = ref("");
 const amount = ref("");
 const tranferAmount = ref("");
+const isToggle = ref(false);
+
+//function calculate exchange rate
 const calExchange = (from, to) => {
   console.log(amount.value != "");
-  console.log(baseUSD);
   let countryTo = baseUSD.filter((value) => value.name == [`${to}`])[0];
   let countryFrom = baseUSD.filter((value) => value.name == [`${from}`])[0];
   if (amount.value != "") {
@@ -73,17 +77,48 @@ const calExchange = (from, to) => {
   }
 };
 
+//function calculate crypto rate
+const calCrypto = (from, to) => {
+  console.log(amount.value != "");
+  let cryptoTo = crypto.filter((value) => value.name == [`${to}`])[0];
+  let cryptoFrom = crypto.filter((value) => value.name == [`${from}`])[0];
+  if (amount.value != "") {
+    tranferAmount.value = (amount.value * cryptoTo.rate) / cryptoFrom.rate;
+    document.getElementById("result").value = tranferAmount.value;
+  } else {
+    Swal.fire({
+      icon: "error",
+      title: "ขออภัย...",
+      text: "โปรดกรอกข้อมูลในช่องว่างให้เรียบร้อย",
+    });
+  }
+};
+
+//fucntion switch currency
 const switchCurren = (from, to) => {
   let swap = from;
   let swap2 = to;
+  if (amount.value != "") {
+    currenFrom.value = swap2;
+    currenTo.value = swap;
+    calExchange(swap2, swap);
+  }
   currenFrom.value = swap2;
   currenTo.value = swap;
-  calExchange(swap2, swap);
+
 };
+
+//computed remaining exchange currency
 const remainingExchange = computed(() =>
   baseUSD.filter((currency) => currency.name != currenFrom.value)
 );
-const isToggle = ref(false);
+
+//computed remaining crypto currency
+const remainingCrypto = computed(() =>
+  crypto.filter((currency) => currency.name != currenFrom.value)
+);
+
+//function show crypto or exchange
 const showCrypto = () => {
   console.log(isToggle.value);
   isToggle.value = !isToggle.value
@@ -102,7 +137,8 @@ const showCrypto = () => {
   </div>
 
   <div class="container mx-auto flex justify-center mt-10" id="exchange">
-    <div class="p-10 card bg-base-200 flex justify-center">
+    <div class="p-10 card bg-base-200 flex justify-center" v-if="!isToggle">
+      <h1 class="flex justify-center mb-5 text-xl font-bold">Exchange</h1>
       <label class="input-group">
         <span>Amount</span>
         <input
@@ -145,6 +181,51 @@ const showCrypto = () => {
               @click="calExchange(currenFrom, currenTo)"
               class="btn btn-primary mx-auto"
             >Convert</button>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="p-10 card bg-base-200 flex justify-center" v-else>
+      <h1 class="flex justify-center mb-5 text-xl font-bold">Crypto</h1>
+      <label class="input-group">
+        <span>Amount</span>
+        <input
+          type="number"
+          placeholder="type amount"
+          v-model="amount"
+          class="input input-bordered"
+        />
+        <span>{{ currenFrom }}</span>
+      </label>
+      <div class="grid grid-cols-3 gap-x-5">
+        <label class="label">
+          <span class="label-text">From</span>
+        </label>
+
+        <label class="label col-start-3">
+          <span class="label-text">To</span>
+        </label>
+        <select name id v-model="currenFrom" class="select select-bordered w-full">
+          <option v-for="(value, key, index) in crypto">{{ value.name }}</option>
+        </select>
+        <button @click="switchCurren(currenFrom, currenTo)" class="btn btn-secondary">Switch</button>
+        <select name id v-model="currenTo" class="select select-bordered w-full">
+          <option v-for="(value, key, index) in remainingCrypto">{{ value.name }}</option>
+        </select>
+        <div class="form-control col-span-3">
+          <label class="label place-content-center">
+            <span class="label-text">แปลงแล้ว</span>
+          </label>
+          <label class="input-group input-group-md place-content-center">
+            <input
+              type="number"
+              id="result"
+              pointer-events="none"
+              class="input input-bordered"
+              maxlength="10"
+            />
+            <span>{{ currenTo }}</span>
+            <button @click="calCrypto(currenFrom, currenTo)" class="btn btn-primary mx-auto">Convert</button>
           </label>
         </div>
       </div>
