@@ -4,12 +4,12 @@ import Swal from "sweetalert2";
 
 const baseUSD = reactive([
   {
-    name: "USA",
+    name: "USD",
     rate: 1,
     img: "images/USA.png",
   },
   {
-    name: "THA",
+    name: "THB",
     rate: 32.4575,
     img: "images/THA.png",
   },
@@ -57,15 +57,10 @@ const currenTo = ref("");
 const amount = ref("");
 const tranferAmount = ref("");
 const calExchange = (from, to) => {
-  // console.log(`from ${from} : to ${to} : amount ${amount.value}`)
-  // console.log(baseUSD[`${to}`])
   console.log(amount.value != "");
   console.log(baseUSD);
   let countryTo = baseUSD.filter((value) => value.name == [`${to}`])[0];
   let countryFrom = baseUSD.filter((value) => value.name == [`${from}`])[0];
-  console.log(countryTo.rate);
-  console.log(countryFrom.rate);
-  // baseUSD.filter(value=> value.name[`${to}`] )
   if (amount.value != "") {
     tranferAmount.value = (amount.value * countryTo.rate) / countryFrom.rate;
     document.getElementById("result").value = tranferAmount.value;
@@ -89,12 +84,21 @@ const remainingExchange = computed(() =>
   baseUSD.filter((currency) => currency.name != currenFrom.value)
 );
 const isToggle = ref(false);
-const showCrypto = () => (isToggle.value = !isToggle.value);
+const showCrypto = () => {
+  console.log(isToggle.value);
+  isToggle.value = !isToggle.value
+  if (isToggle.value == true) {
+    document.getElementById("crypto").textContent = "exchange"
+  } else {
+    document.getElementById("crypto").textContent = "cryptocurrency"
+  }
+  console.log(isToggle.value);
+};
 </script>
 
 <template>
   <div style="text-align: center; margin-top: 2rem">
-    <button class="btn btn-info" @click="showCrypto">cryptocurrency</button>
+    <button class="btn btn-info" @click="showCrypto" id="crypto">cryptocurrency</button>
   </div>
 
   <div class="container mx-auto flex justify-center mt-10" id="exchange">
@@ -117,31 +121,12 @@ const showCrypto = () => (isToggle.value = !isToggle.value);
         <label class="label col-start-3">
           <span class="label-text">To</span>
         </label>
-        <select
-          name
-          id
-          v-model="currenFrom"
-          class="select select-bordered w-full"
-        >
-          <option v-for="(value, key, index) in baseUSD">
-            {{ value.name }}
-          </option>
+        <select name id v-model="currenFrom" class="select select-bordered w-full">
+          <option v-for="(value, key, index) in baseUSD">{{ value.name }}</option>
         </select>
-        <button
-          @click="switchCurren(currenFrom, currenTo)"
-          class="btn btn-secondary"
-        >
-          Switch
-        </button>
-        <select
-          name
-          id
-          v-model="currenTo"
-          class="select select-bordered w-full"
-        >
-          <option v-for="(value, key, index) in remainingExchange">
-            {{ value.name }}
-          </option>
+        <button @click="switchCurren(currenFrom, currenTo)" class="btn btn-secondary">Switch</button>
+        <select name id v-model="currenTo" class="select select-bordered w-full">
+          <option v-for="(value, key, index) in remainingExchange">{{ value.name }}</option>
         </select>
         <div class="form-control col-span-3">
           <label class="label place-content-center">
@@ -159,9 +144,7 @@ const showCrypto = () => (isToggle.value = !isToggle.value);
             <button
               @click="calExchange(currenFrom, currenTo)"
               class="btn btn-primary mx-auto"
-            >
-              Convert
-            </button>
+            >Convert</button>
           </label>
         </div>
       </div>
@@ -170,10 +153,10 @@ const showCrypto = () => (isToggle.value = !isToggle.value);
 
   <div class="container mx-auto flex justify-center mt-8">
     <div class="px-10 card bg-base-200 flex">
-      <h1 class="flex justify-center mt-3">Exchange Rates</h1>
+      <h1 class="flex justify-center mt-3 text-lg font-bold text-violet-500">Exchange Rates</h1>
       <div class="grid grid-cols-2 gap-4 mt-3">
-        <p class="px-16 col-start-1">Currency</p>
-        <p class="px-16 col-start-2">Amount</p>
+        <p class="px-16 col-start-1 font-bold">Currency</p>
+        <p class="px-16 col-start-2 font-bold">Amount</p>
       </div>
       <div
         class="grid grid-cols-2 gap-4 mt-3 mb-3 text-center"
@@ -192,7 +175,7 @@ const showCrypto = () => (isToggle.value = !isToggle.value);
           {{
             new Intl.NumberFormat("en-US", {
               style: "currency",
-              currency: "USD",
+              currency: `${value.name}`,
               minimumFractionDigits: 5,
             }).format(value.rate)
           }}
