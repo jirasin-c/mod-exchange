@@ -11,7 +11,7 @@ const baseUSD = reactive([
   {
     name: "THA",
     rate: 32.4575,
-    img: "images/THA.png",
+    img: "images/THB.png",
   },
   {
     name: "JPY",
