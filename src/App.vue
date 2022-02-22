@@ -58,7 +58,7 @@ const currenFrom = ref("");
 const currenTo = ref("");
 const amount = ref("");
 const tranferAmount = ref("");
-const isToggle = ref(false);
+const isCrypto = ref(false);
 
 //function calculate exchange rate
 const calExchange = (from, to) => {
@@ -98,13 +98,18 @@ const calCrypto = (from, to) => {
 const switchCurren = (from, to) => {
   let swap = from;
   let swap2 = to;
-  if (amount.value != "") {
+  if (amount.value != "" && isCrypto.value != true) {
     currenFrom.value = swap2;
     currenTo.value = swap;
     calExchange(swap2, swap);
+  } else if (amount.value != "" && isCrypto.value == true) {
+    currenFrom.value = swap2;
+    currenTo.value = swap;
+    calCrypto(swap2, swap);
+  } else {
+    currenFrom.value = swap2;
+    currenTo.value = swap;
   }
-  currenFrom.value = swap2;
-  currenTo.value = swap;
 
 };
 
@@ -120,24 +125,29 @@ const remainingCrypto = computed(() =>
 
 //function show crypto or exchange
 const showCrypto = () => {
-  console.log(isToggle.value);
-  isToggle.value = !isToggle.value
-  if (isToggle.value == true) {
-    document.getElementById("crypto").textContent = "exchange"
-  } else {
-    document.getElementById("crypto").textContent = "cryptocurrency"
-  }
-  console.log(isToggle.value);
+  console.log(isCrypto.value);
+  currenFrom.value = ""
+  currenTo.value = ""
+  amount.value = ""
+  tranferAmount.value = ""
+  isCrypto.value = !isCrypto.value
+  // if (isCrypto.value == true) {
+  //   document.getElementById("crypto").textContent = "exchange"
+  // } else {
+  //   document.getElementById("crypto").textContent = "cryptocurrency"
+  // }
+  console.log(isCrypto.value);
 };
 </script>
 
 <template>
   <div style="text-align: center; margin-top: 2rem">
-    <button class="btn btn-info" @click="showCrypto" id="crypto">cryptocurrency</button>
+    <button class="btn btn-info" @click="showCrypto" v-if="!isCrypto">cryptocurrency</button>
+    <button class="btn btn-info" @click="showCrypto" v-else>exchange</button>
   </div>
 
   <div class="container mx-auto flex justify-center mt-10" id="exchange">
-    <div class="p-10 card bg-base-200 flex justify-center" v-if="!isToggle">
+    <div class="p-10 card bg-base-200 flex justify-center" v-if="!isCrypto">
       <h1 class="flex justify-center mb-5 text-xl font-bold">Exchange</h1>
       <label class="input-group">
         <span>Amount</span>
@@ -242,7 +252,7 @@ const showCrypto = () => {
       <div
         class="grid grid-cols-2 gap-4 mt-3 mb-3 text-center"
         v-for="(value, key, index) in baseUSD"
-        v-if="!isToggle"
+        v-if="!isCrypto"
       >
         <p>
           <span class="avatar">
