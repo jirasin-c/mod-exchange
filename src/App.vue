@@ -5,20 +5,13 @@ import Swal from 'sweetalert2'
 const currentDate = ref(new Date())
 const currentTime = ref(new Date())
 
-//reactive currentTime
-const currentTimeReactive = reactive(currentTime)
+const currentDateString = computed(() => {
+  return currentDate.value.toLocaleDateString()
+})
 
-  //computed currentTime
-  const currentTimeComputed = computed(() => currentTimeReactive)
-
-  const currentDateString = computed(() => {
-      return currentDate.value.toLocaleDateString()
-    })
-
-  const currentTimeString = computed(() => {
-      return currentTime.value.toLocaleTimeString()
-    })
-
+const currentTimeString = computed(() => {
+  return currentTime.value.toLocaleTimeString()
+})
 
 //data currency
 const baseUSD = reactive([
@@ -146,7 +139,6 @@ const showCrypto = () => {
   }
   console.log(isToggle.value)
 }
-
 </script>
 
 <template>
@@ -368,7 +360,7 @@ const showCrypto = () => {
       </div>
       <div class="grid grid-cols-2 gap-4 mt-3 mb-3 text-center">
         <p>{{ currentDateString }}</p>
-        <p>{{ currentTimeReactive }}</p>
+        <p>{{ currentTimeString }}</p>
       </div>
     </div>
   </div>
