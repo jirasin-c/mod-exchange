@@ -5,10 +5,11 @@ import Swal from 'sweetalert2'
 const currentDate = ref(new Date())
 const currentTime = ref(new Date())
 
-const clock = reactive({
-  currentDate,
-  currentTime
-})
+//reactive currentTime
+const currentTimeReactive = reactive(currentTime)
+
+  //computed currentTime
+  const currentTimeComputed = computed(() => currentTimeReactive)
 
   const currentDateString = computed(() => {
       return currentDate.value.toLocaleDateString()
@@ -367,7 +368,7 @@ const showCrypto = () => {
       </div>
       <div class="grid grid-cols-2 gap-4 mt-3 mb-3 text-center">
         <p>{{ currentDateString }}</p>
-        <p>{{ currentTimeString }}</p>
+        <p>{{ currentTimeReactive }}</p>
       </div>
     </div>
   </div>
