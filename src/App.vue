@@ -56,6 +56,7 @@ const currenFrom = ref("");
 const currenTo = ref("");
 const amount = ref("");
 const tranferAmount = ref("");
+const mode = ref("")
 
 const calExchange = (from, to) => {
   // console.log(`from ${from} : to ${to} : amount ${amount.value}`)
@@ -114,7 +115,8 @@ const remainingExchangeCrypto = computed(() =>
 
 <template>
   <div style="text-align: center; margin-top: 2rem">
-    <button class="btn btn-info" @click="showCrypto">cryptocurrency</button>
+    <button id="mode" class="btn btn-info" @click="showCrypto" v-if="isToggle">Exchang rate</button>
+    <button id="mode" class="btn btn-info" @click="showCrypto" v-else>Cryptocurrency</button>
   </div>
 
   <div class="container mx-auto flex justify-center mt-10" id="exchange">
@@ -137,31 +139,12 @@ const remainingExchangeCrypto = computed(() =>
         <label class="label col-start-3">
           <span class="label-text">To</span>
         </label>
-        <select
-          name
-          id
-          v-model="currenFrom"
-          class="select select-bordered w-full"
-        >
-          <option v-for="(value, key, index) in baseUSD">
-            {{ value.name }}
-          </option>
+        <select name id v-model="currenFrom" class="select select-bordered w-full">
+          <option v-for="(value, key, index) in baseUSD">{{ value.name }}</option>
         </select>
-        <button
-          @click="switchCurren(currenFrom, currenTo)"
-          class="btn btn-secondary"
-        >
-          Switch
-        </button>
-        <select
-          name
-          id
-          v-model="currenTo"
-          class="select select-bordered w-full"
-        >
-          <option v-for="(value, key, index) in remainingExchange">
-            {{ value.name }}
-          </option>
+        <button @click="switchCurren(currenFrom, currenTo)" class="btn btn-secondary">Switch</button>
+        <select name id v-model="currenTo" class="select select-bordered w-full">
+          <option v-for="(value, key, index) in remainingExchange">{{ value.name }}</option>
         </select>
         <div class="form-control col-span-3">
           <label class="label place-content-center">
@@ -179,9 +162,7 @@ const remainingExchangeCrypto = computed(() =>
             <button
               @click="calExchange(currenFrom, currenTo)"
               class="btn btn-primary mx-auto"
-            >
-              Convert
-            </button>
+            >Convert</button>
           </label>
         </div>
       </div>
@@ -206,31 +187,12 @@ const remainingExchangeCrypto = computed(() =>
         <label class="label col-start-3">
           <span class="label-text">To</span>
         </label>
-        <select
-          name
-          id
-          v-model="currenFrom"
-          class="select select-bordered w-full"
-        >
-          <option v-for="(value, key, index) in crypto">
-            {{ value.name }}
-          </option>
+        <select name id v-model="currenFrom" class="select select-bordered w-full">
+          <option v-for="(value, key, index) in crypto">{{ value.name }}</option>
         </select>
-        <button
-          @click="switchCurren(currenFrom, currenTo)"
-          class="btn btn-secondary"
-        >
-          Switch
-        </button>
-        <select
-          name
-          id
-          v-model="currenTo"
-          class="select select-bordered w-full"
-        >
-          <option v-for="(value, key, index) in remainingExchangeCrypto">
-            {{ value.name }}
-          </option>
+        <button @click="switchCurren(currenFrom, currenTo)" class="btn btn-secondary">Switch</button>
+        <select name id v-model="currenTo" class="select select-bordered w-full">
+          <option v-for="(value, key, index) in remainingExchangeCrypto">{{ value.name }}</option>
         </select>
         <div class="form-control col-span-3">
           <label class="label place-content-center">
@@ -248,9 +210,7 @@ const remainingExchangeCrypto = computed(() =>
             <button
               @click="calExchangCrypto(currenFrom, currenTo)"
               class="btn btn-primary mx-auto"
-            >
-              Convert
-            </button>
+            >Convert</button>
           </label>
         </div>
       </div>
