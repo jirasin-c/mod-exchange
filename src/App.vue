@@ -56,7 +56,6 @@ const currenFrom = ref("");
 const currenTo = ref("");
 const amount = ref("");
 const tranferAmount = ref("");
-const mode = ref("")
 
 const calExchange = (from, to) => {
   // console.log(`from ${from} : to ${to} : amount ${amount.value}`)
@@ -115,8 +114,8 @@ const remainingExchangeCrypto = computed(() =>
 
 <template>
   <div style="text-align: center; margin-top: 2rem">
-    <button id="mode" class="btn btn-info" @click="showCrypto" v-if="isToggle">Exchang rate</button>
-    <button id="mode" class="btn btn-info" @click="showCrypto" v-else>Cryptocurrency</button>
+    <button class="btn btn-info" @click="showCrypto" v-if="isToggle">Exchang rate</button>
+    <button class="btn btn-info" @click="showCrypto" v-else>Cryptocurrency</button>
   </div>
 
   <div class="container mx-auto flex justify-center mt-10" id="exchange">
