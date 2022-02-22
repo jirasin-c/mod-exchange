@@ -117,7 +117,12 @@ const toggleDarkMode = () => (darkMode.value = !darkMode.value);
 </script>
 
 <template>
-//create button to change dark mode and light mode
+<div>
+  <button class="btn btn-primary" @click="toggleDarkMode">
+    {{ darkMode.value ? 'Light Mode' : 'Dark Mode' }}
+  </button>
+</div>
+
   <div style="text-align: center; margin-top: 2rem">
     <button class="btn btn-info" @click="showCrypto">cryptocurrency</button>
   </div>
