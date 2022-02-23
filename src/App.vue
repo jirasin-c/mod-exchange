@@ -2,8 +2,9 @@
 import { ref, reactive, computed } from 'vue'
 import Swal from 'sweetalert2'
 
+//date and time
 const currentDate = ref(new Date())
-const currentTime = ref(new Date())
+
 
 const clock = reactive({
   date: currentDate,
@@ -25,10 +26,6 @@ const time = computed(() => {
 
 const currentDateString = computed(() => {
   return currentDate.value.toLocaleDateString()
-})
-
-const currentTimeString = computed(() => {
-  return currentTime.value.toLocaleTimeString()
 })
 
 //data currency
