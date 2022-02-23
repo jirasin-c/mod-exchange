@@ -189,7 +189,11 @@ const remainingExchangeCrypto = computed(() =>
         <select name id v-model="currenFrom" class="select select-bordered w-full">
           <option v-for="(value, key, index) in crypto">{{ value.name }}</option>
         </select>
-        <button @click="switchCurren(currenFrom, currenTo)" class="btn btn-secondary">Switch</button>
+        <button
+          @click="switchCurren(currenFrom, currenTo)"
+          class="btn btn-secondary"
+          required
+        >Switch</button>
         <select name id v-model="currenTo" class="select select-bordered w-full">
           <option v-for="(value, key, index) in remainingExchangeCrypto">{{ value.name }}</option>
         </select>
@@ -275,6 +279,13 @@ const remainingExchangeCrypto = computed(() =>
 </template>
 
 <style>
+body[data-theme="light"] p,
+body[data-theme="light"] h1,
+body[data-theme="light"] span,
+body[data-theme="light"] a,
+body[data-theme="light"] option {
+  color: black;
+}
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
