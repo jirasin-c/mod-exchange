@@ -5,6 +5,24 @@ import Swal from 'sweetalert2'
 const currentDate = ref(new Date())
 const currentTime = ref(new Date())
 
+const clock = reactive({
+  date: currentDate,
+  time: currentTime,
+})
+
+setInterval(() => {
+  clock.date = new Date()
+  clock.time = new Date()
+}, 1000)
+
+const time = computed(() => {
+  const hours = clock.time.getHours()
+  const minutes = clock.time.getMinutes()
+  const seconds = clock.time.getSeconds()
+
+  return `${hours}:${minutes}:${seconds}`
+})
+
 const currentDateString = computed(() => {
   return currentDate.value.toLocaleDateString()
 })
@@ -360,7 +378,7 @@ const showCrypto = () => {
       </div>
       <div class="grid grid-cols-2 gap-4 mt-3 mb-3 text-center">
         <p>{{ currentDateString }}</p>
-        <p>{{ currentTimeString }}</p>
+        <p>{{ time }}</p>
       </div>
     </div>
   </div>
