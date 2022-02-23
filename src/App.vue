@@ -4,7 +4,7 @@ import Swal from 'sweetalert2'
 
 //date and time
 const currentDate = ref(new Date())
-
+const currentTime = ref(new Date())
 
 const clock = reactive({
   date: currentDate,
@@ -25,7 +25,7 @@ const time = computed(() => {
 })
 
 const currentDateString = computed(() => {
-  return currentDate.value.toLocaleDateString()
+  return clock.date.toLocaleDateString()
 })
 
 //data currency
