@@ -379,6 +379,9 @@ const showCrypto = () => {
       </div>
     </div>
   </div>
+
+
+
 </template>
 
 <style>
