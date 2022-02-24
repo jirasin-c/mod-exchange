@@ -59,6 +59,7 @@ const currenTo = ref("");
 const amount = ref("");
 const tranferAmount = ref("");
 const isCrypto = ref(false);
+const searchWord = ref("");
 
 //function calculate exchange rate
 const calExchange = (from, to) => {
@@ -139,20 +140,40 @@ const showCrypto = () => {
   console.log(isCrypto.value);
 };
 
+//function push name to input from
 const pushToFrom = (nameFrom) => {
   currenFrom.value = nameFrom
 }
+
+//function push name to input from
 const pushToTo = (nameTo) => {
   currenTo.value = nameTo
 }
+
+const resetValue = () => {
+  currenFrom.value = ""
+  currenTo.value = ""
+  amount.value = ""
+  console.log(tranferAmount.value);
+  tranferAmount.value = ""
+  document.getElementById("result").value = tranferAmount.value;
+}
+
+const filterSearch = computed(() => {
+  if (isCrypto.value != true) {
+    return baseUSD.filter((currWord) => currWord.name.toLocaleLowerCase().includes(searchWord.value))
+  } else {
+    return crypto.filter((currWord) => currWord.name.toLocaleLowerCase().includes(searchWord.value))
+  }
+})
 
 </script>
 
 <template>
   <!-- swap button section -->
   <div class="flex justify-center mt-5">
-    <button class="btn btn-info" @click="showCrypto" v-if="!isCrypto">cryptocurrency</button>
-    <button class="btn btn-info" @click="showCrypto" v-else>exchange</button>
+    <button class="btn btn-outline btn-info" @click="showCrypto" v-if="!isCrypto">$ cryptocurrency</button>
+    <button class="btn btn-outline btn-info" @click="showCrypto" v-else>$ exchange</button>
   </div>
 
   <!-- exchange section -->
@@ -160,14 +181,14 @@ const pushToTo = (nameTo) => {
     <div class="pb-10 pl-10 pr-10 pt-7 card bg-base-200 flex justify-center" v-if="!isCrypto">
       <h1 class="flex justify-center mb-6 text-xl font-bold">Exchange</h1>
       <label class="input-group">
-        <span>Amount</span>
+        <span class="text-center">Amount</span>
         <input
           type="number"
           placeholder="type amount"
           v-model="amount"
           class="input input-bordered"
         />
-        <span>{{ currenFrom }}</span>
+        <span class="text-center">{{ currenFrom }}</span>
       </label>
       <div class="grid grid-cols-3 gap-x-5">
         <label class="label">
@@ -201,6 +222,7 @@ const pushToTo = (nameTo) => {
               @click="calExchange(currenFrom, currenTo)"
               class="btn btn-primary mx-auto"
             >Convert</button>
+            <button class="btn btn-outline btn-warning mx-auto" @click="resetValue">Reset</button>
           </label>
         </div>
       </div>
@@ -246,6 +268,7 @@ const pushToTo = (nameTo) => {
             />
             <span>{{ currenTo }}</span>
             <button @click="calCrypto(currenFrom, currenTo)" class="btn btn-primary mx-auto">Convert</button>
+            <button class="btn btn-outline btn-warning mx-auto" @click="resetValue">Reset</button>
           </label>
         </div>
       </div>
@@ -255,14 +278,19 @@ const pushToTo = (nameTo) => {
   <!-- exchange rate section -->
   <div class="container mx-auto flex justify-center mt-8">
     <div class="px-10 card bg-base-200 flex">
-      <h1 class="flex justify-center mt-3 text-lg font-bold text-violet-500">Exchange Rates</h1>
+      <div class="flex justify-center">
+        <h1 class="mt-3 text-lg font-bold text-violet-500">Exchange Rates</h1>
+        <div class="form-control">
+          <input type="text" placeholder="Search" class="input input-bordered" v-model="searchWord" />
+        </div>
+      </div>
       <div class="grid grid-cols-3 gap-4 mt-3">
         <p class="px-16 col-start-1 font-bold">Currency</p>
         <p class="px-16 col-start-2 font-bold">Amount</p>
       </div>
       <div
         class="grid grid-cols-3 gap-4 mt-3 mb-3 text-center"
-        v-for="(value, key, index) in baseUSD"
+        v-for="(value, key, index) in filterSearch"
         v-if="!isCrypto"
       >
         <p>
@@ -283,13 +311,13 @@ const pushToTo = (nameTo) => {
           }}
         </p>
         <div>
-          <button class="btn btn-sm btn-info mr-5" @click="pushToFrom(value.name)">From</button>
-          <button class="btn btn-sm btn-info" @click="pushToTo(value.name)">To</button>
+          <button class="btn btn-sm btn-active mr-5" @click="pushToFrom(value.name)">From</button>
+          <button class="btn btn-sm btn btn-active" @click="pushToTo(value.name)">To</button>
         </div>
       </div>
       <div
         class="grid grid-cols-3 gap-4 mt-3 mb-3 text-center"
-        v-for="(value, key, index) in crypto"
+        v-for="(value, key, index) in filterSearch"
         v-else
       >
         <p>
@@ -310,8 +338,8 @@ const pushToTo = (nameTo) => {
           }}
         </p>
         <div>
-          <button class="btn btn-sm btn-info mr-5" @click="pushToFrom(value.name)">From</button>
-          <button class="btn btn-sm btn-info" @click="pushToTo(value.name)">To</button>
+          <button class="btn btn-active btn-sm mr-5" @click="pushToFrom(value.name)">From</button>
+          <button class="btn btn-active btn-sm" @click="pushToTo(value.name)">To</button>
         </div>
       </div>
     </div>
