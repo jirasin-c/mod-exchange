@@ -1,10 +1,9 @@
 <script setup>
 import { ref, reactive, computed } from "vue";
 import Swal from "sweetalert2";
-
 const baseUSD = reactive([
   {
-    name: "USD",
+    name: "USA",
     rate: 1,
     img: "images/USA.png",
   },
@@ -51,12 +50,10 @@ const crypto = reactive([
     img: "images/BNB.png",
   },
 ]);
-
 const currenFrom = ref("");
 const currenTo = ref("");
 const amount = ref("");
 const tranferAmount = ref("");
-
 const calExchange = (from, to) => {
   // console.log(`from ${from} : to ${to} : amount ${amount.value}`)
   // console.log(baseUSD[`${to}`])
@@ -78,7 +75,6 @@ const calExchange = (from, to) => {
     });
   }
 };
-
 const calExchangCrypto = (from, to) => {
   let countryTo = crypto.filter((value) => value.name == [`${to}`])[0];
   let countryFrom = crypto.filter((value) => value.name == [`${from}`])[0];
@@ -93,7 +89,6 @@ const calExchangCrypto = (from, to) => {
     });
   }
 };
-
 const switchCurren = (from, to) => {
   let swap = from;
   let swap2 = to;
@@ -106,7 +101,6 @@ const remainingExchange = computed(() =>
 );
 const isToggle = ref(false);
 const showCrypto = () => (isToggle.value = !isToggle.value);
-
 const remainingExchangeCrypto = computed(() =>
   crypto.filter((currency) => currency.name != currenFrom.value)
 );
@@ -244,7 +238,7 @@ const remainingExchangeCrypto = computed(() =>
           {{
             new Intl.NumberFormat("en-US", {
               style: "currency",
-              currency: `${value.name}`,
+              currency: "USD",
               minimumFractionDigits: 5,
             }).format(value.rate)
           }}
