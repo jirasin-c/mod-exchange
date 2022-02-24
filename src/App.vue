@@ -78,9 +78,11 @@ const calExchange = (from, to) => {
 const calExchangCrypto = (from, to) => {
   let countryTo = crypto.filter((value) => value.name == [`${to}`])[0];
   let countryFrom = crypto.filter((value) => value.name == [`${from}`])[0];
+  console.log(to + "  " + from);
+  console.log(countryTo + "  " + countryFrom);
   if (amount.value != "") {
     tranferAmount.value = (amount.value * countryTo.rate) / countryFrom.rate;
-    document.getElementById("result").value = tranferAmount.value;
+    // document.getElementById("result").textContent = tranferAmount.value;
   } else {
     Swal.fire({
       icon: "error",
@@ -104,125 +106,140 @@ const showCrypto = () => (isToggle.value = !isToggle.value);
 const remainingExchangeCrypto = computed(() =>
   crypto.filter((currency) => currency.name != currenFrom.value)
 );
+
+//function push name to input from
+const pushToFrom = (nameFrom) => {
+  currenFrom.value = nameFrom;
+};
+//function push name to input from
+const pushToTo = (nameTo) => {
+  currenTo.value = nameTo;
+};
+const resetValue = () => {
+  currenFrom.value = "";
+  currenTo.value = "";
+  amount.value = "";
+  console.log(tranferAmount.value);
+  tranferAmount.value = "";
+  document.getElementById("result").value = tranferAmount.value;
+};
 </script>
 
 <template>
+  <!-- change function -->
   <!-- <div style="text-align: center; margin-top: 2rem">
-    <button class="btn btn-info" @click="showCrypto" v-if="isToggle">Exchang rate</button>
-    <button class="btn btn-info" @click="showCrypto" v-else>Cryptocurrency</button>
-  </div>
+    <button class="btn btn-info" @click="showCrypto" v-if="isToggle">
+      Exchang rate
+    </button>
+    <button class="btn btn-info" @click="showCrypto" v-else>
+      Cryptocurrency
+    </button>
+  </div> -->
 
-  <div class="container mx-auto flex justify-center mt-10" id="exchange">
-    <div class="p-10 card bg-base-200 flex justify-center" v-if="!isToggle">
-      <label class="input-group">
-        <span>Amount</span>
-        <input
-          type="number"
-          placeholder="type amount"
-          v-model="amount"
-          class="input input-bordered"
-        />
-        <span>{{ currenFrom }}</span>
-      </label>
-      <div class="grid grid-cols-3 gap-x-5">
-        <label class="label">
-          <span class="label-text">From</span>
+  <div
+    class="container mx-auto flex flex-col justify-center"
+    id="exchange"
+    style="margin-top: -26rem"
+  >
+    <h1 class="font-title text-center font-extrabold py-6">
+      <div class="text-2xl lg:text-5xl text-white">Exchange Money</div>
+    </h1>
+    <!-- content -->
+    <div
+      class="px-16 py-10 mt-4 card bg-base-200 flex justify-center item-center"
+      v-if="!isToggle"
+    >
+      <div class="grid grid-cols-10 grid-rows-3">
+        <!-- label1 col 1 -->
+        <label class="input-group flex justify-center col-start-1 col-span-3">
+          <span>Amount</span>
+          <input
+            type="number"
+            placeholder="type amount"
+            v-model="amount"
+            class="input input-bordered w-2/3"
+          />
+          <span>{{ currenFrom }}</span>
         </label>
-
-        <label class="label col-start-3">
-          <span class="label-text">To</span>
+        <!-- label2 col 1 -->
+        <label class="input-group flex justify-end col-span-3">
+          <span>From</span>
+          <select
+            name
+            id
+            v-model="currenFrom"
+            class="select select-bordered w-2/3"
+          >
+            <option v-for="(value, key, index) in baseUSD">
+              {{ value.name }}
+            </option>
+          </select>
+          <span>{{ currenFrom }}</span>
         </label>
-        <select name id v-model="currenFrom" class="select select-bordered w-full">
-          <option v-for="(value, key, index) in baseUSD">{{ value.name }}</option>
-        </select>
-        <button @click="switchCurren(currenFrom, currenTo)" class="btn btn-secondary">Switch</button>
-        <select name id v-model="currenTo" class="select select-bordered w-full">
-          <option v-for="(value, key, index) in remainingExchange">{{ value.name }}</option>
-        </select>
-        <div class="form-control col-span-3">
-          <label class="label place-content-center">
-            <span class="label-text">แปลงแล้ว</span>
-          </label>
+        <!-- label3 col 1 -->
+        <label class="flex xl:justify-center lg:ml-7"
+          ><button
+            @click="switchCurren(currenFrom, currenTo)"
+            class="btn btn-secondary"
+          >
+            Switch
+          </button>
+        </label>
+        <!-- label4 col 1 -->
+        <label class="input-group flex justify-center col-span-3">
+          <span>To</span>
+          <select
+            name
+            id
+            v-model="currenTo"
+            class="select select-bordered w-2/3"
+          >
+            <option v-for="(value, key, index) in remainingExchange">
+              {{ value.name }}
+            </option>
+          </select>
+          <span>{{ currenTo }}</span>
+        </label>
+        <label class="label place-content-center col-span-10">
+          <span class="label-text text-xl">แปลงแล้ว</span>
+        </label>
+        <div class="col-span-10">
           <label class="input-group input-group-md place-content-center">
             <input
               type="number"
               id="result"
               pointer-events="none"
-              class="input input-bordered"
+              class="input input-bordered w-1/3"
               maxlength="10"
+              v-model="tranferAmount"
             />
             <span>{{ currenTo }}</span>
             <button
               @click="calExchange(currenFrom, currenTo)"
-              class="btn btn-primary mx-auto"
-            >Convert</button>
-          </label>
-        </div>
-      </div>
-    </div>
-
-    <div class="p-10 card bg-base-200 flex justify-center" v-else>
-      <label class="input-group">
-        <span>Amount</span>
-        <input
-          type="number"
-          placeholder="type amount"
-          v-model="amount"
-          class="input input-bordered"
-        />
-        <span>{{ currenFrom }}</span>
-      </label>
-      <div class="grid grid-cols-3 gap-x-5">
-        <label class="label">
-          <span class="label-text">From</span>
-        </label>
-
-        <label class="label col-start-3">
-          <span class="label-text">To</span>
-        </label>
-        <select name id v-model="currenFrom" class="select select-bordered w-full">
-          <option v-for="(value, key, index) in crypto">{{ value.name }}</option>
-        </select>
-        <button
-          @click="switchCurren(currenFrom, currenTo)"
-          class="btn btn-secondary"
-          required
-        >Switch</button>
-        <select name id v-model="currenTo" class="select select-bordered w-full">
-          <option v-for="(value, key, index) in remainingExchangeCrypto">{{ value.name }}</option>
-        </select>
-        <div class="form-control col-span-3">
-          <label class="label place-content-center">
-            <span class="label-text">แปลงแล้ว</span>
-          </label>
-          <label class="input-group input-group-md place-content-center">
-            <input
-              type="number"
-              id="result"
-              pointer-events="none"
-              class="input input-bordered"
-              maxlength="10"
-            />
-            <span>{{ currenTo }}</span>
-            <button
-              @click="calExchangCrypto(currenFrom, currenTo)"
-              class="btn btn-primary mx-auto"
-            >Convert</button>
+              class="btn btn-primary"
+            >
+              Convert
+            </button>
+            <button class="btn btn-warning" @click="resetValue">Reset</button>
           </label>
         </div>
       </div>
     </div>
   </div>
 
+  <!-- exchange rate section -->
   <div class="container mx-auto flex justify-center mt-8">
-    <div class="px-10 card bg-base-200 flex">
-      <h1 class="flex justify-center mt-3">Exchange Rates</h1>
-      <div class="grid grid-cols-2 gap-4 mt-3">
-        <p class="px-16 col-start-1">Currency</p>
-        <p class="px-16 col-start-2">Amount</p>
+    <div class="px-16 py-2 card bg-base-200 flex">
+      <h1 class="font-title text-center font-extrabold mt-2">
+        <div class="text-2xl lg:text-2xl">Rate Money</div>
+      </h1>
+      <div class="grid grid-cols-3 gap-4 mt-3">
+        <p class="px-32">Currency</p>
+        <p class="px-32">Amount</p>
+        <p class="px-32">Country</p>
       </div>
       <div
-        class="grid grid-cols-2 gap-4 mt-3 mb-3 text-center"
+        class="grid grid-cols-3 gap-4 mt-3 mb-3 text-center"
         v-for="(value, key, index) in baseUSD"
         v-if="!isToggle"
       >
@@ -243,6 +260,20 @@ const remainingExchangeCrypto = computed(() =>
             }).format(value.rate)
           }}
         </p>
+        <div>
+          <button
+            class="btn btn-sm btn-active mr-5"
+            @click="pushToFrom(value.name)"
+          >
+            From
+          </button>
+          <button
+            class="btn btn-sm btn btn-active"
+            @click="pushToTo(value.name)"
+          >
+            To
+          </button>
+        </div>
       </div>
 
       <div
@@ -267,9 +298,23 @@ const remainingExchangeCrypto = computed(() =>
             }).format(value.rate)
           }}
         </p>
+        <div>
+          <button
+            class="btn btn-sm btn-active mr-5"
+            @click="pushToFrom(value.name)"
+          >
+            From
+          </button>
+          <button
+            class="btn btn-sm btn btn-active"
+            @click="pushToTo(value.name)"
+          >
+            To
+          </button>
+        </div>
       </div>
     </div>
-  </div> -->
+  </div>
 </template>
 
 <style>
