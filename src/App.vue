@@ -138,17 +138,27 @@ const showCrypto = () => {
   // }
   console.log(isCrypto.value);
 };
+
+const pushToFrom = (nameFrom) => {
+  currenFrom.value = nameFrom
+}
+const pushToTo = (nameTo) => {
+  currenTo.value = nameTo
+}
+
 </script>
 
 <template>
-  <div style="text-align: center; margin-top: 2rem">
+  <!-- swap button section -->
+  <div class="flex justify-center mt-5">
     <button class="btn btn-info" @click="showCrypto" v-if="!isCrypto">cryptocurrency</button>
     <button class="btn btn-info" @click="showCrypto" v-else>exchange</button>
   </div>
 
+  <!-- exchange section -->
   <div class="container mx-auto flex justify-center mt-10" id="exchange">
-    <div class="p-10 card bg-base-200 flex justify-center" v-if="!isCrypto">
-      <h1 class="flex justify-center mb-5 text-xl font-bold">Exchange</h1>
+    <div class="pb-10 pl-10 pr-10 pt-7 card bg-base-200 flex justify-center" v-if="!isCrypto">
+      <h1 class="flex justify-center mb-6 text-xl font-bold">Exchange</h1>
       <label class="input-group">
         <span>Amount</span>
         <input
@@ -195,8 +205,8 @@ const showCrypto = () => {
         </div>
       </div>
     </div>
-    <div class="p-10 card bg-base-200 flex justify-center" v-else>
-      <h1 class="flex justify-center mb-5 text-xl font-bold">Crypto</h1>
+    <div class="pb-10 pl-10 pr-10 pt-7 card bg-base-200 flex justify-center" v-else>
+      <h1 class="flex justify-center mb-6 text-xl font-bold">Crypto</h1>
       <label class="input-group">
         <span>Amount</span>
         <input
@@ -242,15 +252,16 @@ const showCrypto = () => {
     </div>
   </div>
 
+  <!-- exchange rate section -->
   <div class="container mx-auto flex justify-center mt-8">
     <div class="px-10 card bg-base-200 flex">
       <h1 class="flex justify-center mt-3 text-lg font-bold text-violet-500">Exchange Rates</h1>
-      <div class="grid grid-cols-2 gap-4 mt-3">
+      <div class="grid grid-cols-3 gap-4 mt-3">
         <p class="px-16 col-start-1 font-bold">Currency</p>
         <p class="px-16 col-start-2 font-bold">Amount</p>
       </div>
       <div
-        class="grid grid-cols-2 gap-4 mt-3 mb-3 text-center"
+        class="grid grid-cols-3 gap-4 mt-3 mb-3 text-center"
         v-for="(value, key, index) in baseUSD"
         v-if="!isCrypto"
       >
@@ -271,9 +282,13 @@ const showCrypto = () => {
             }).format(value.rate)
           }}
         </p>
+        <div>
+          <button class="btn btn-sm btn-info mr-5" @click="pushToFrom(value.name)">From</button>
+          <button class="btn btn-sm btn-info" @click="pushToTo(value.name)">To</button>
+        </div>
       </div>
       <div
-        class="grid grid-cols-2 gap-4 mt-3 mb-3 text-center"
+        class="grid grid-cols-3 gap-4 mt-3 mb-3 text-center"
         v-for="(value, key, index) in crypto"
         v-else
       >
@@ -294,6 +309,10 @@ const showCrypto = () => {
             }).format(value.rate)
           }}
         </p>
+        <div>
+          <button class="btn btn-sm btn-info mr-5" @click="pushToFrom(value.name)">From</button>
+          <button class="btn btn-sm btn-info" @click="pushToTo(value.name)">To</button>
+        </div>
       </div>
     </div>
   </div>
