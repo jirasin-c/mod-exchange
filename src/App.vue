@@ -107,7 +107,7 @@ const remainingExchangeCrypto = computed(() =>
 </script>
 
 <template>
-  <div style="text-align: center; margin-top: 2rem">
+  <!-- <div style="text-align: center; margin-top: 2rem">
     <button class="btn btn-info" @click="showCrypto" v-if="isToggle">Exchang rate</button>
     <button class="btn btn-info" @click="showCrypto" v-else>Cryptocurrency</button>
   </div>
@@ -269,17 +269,10 @@ const remainingExchangeCrypto = computed(() =>
         </p>
       </div>
     </div>
-  </div>
+  </div> -->
 </template>
 
 <style>
-body[data-theme="light"] p,
-body[data-theme="light"] h1,
-body[data-theme="light"] span,
-body[data-theme="light"] a,
-body[data-theme="light"] option {
-  color: black;
-}
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
