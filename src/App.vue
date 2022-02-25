@@ -166,6 +166,7 @@ const showCrypto = () => {
   <div class="container mx-auto flex justify-center mt-10" id="exchange">
     <div class="p-10 card bg-base-200 flex justify-center" v-if="!isToggle">
       <h1 class="flex justify-center mb-5 text-xl font-bold">Exchange</h1>
+
       <label class="input-group">
         <span>Amount</span>
         <input
@@ -379,9 +380,6 @@ const showCrypto = () => {
       </div>
     </div>
   </div>
-
-
-
 </template>
 
 <style>
