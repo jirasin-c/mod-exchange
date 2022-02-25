@@ -96,7 +96,11 @@ const switchCurren = (from, to) => {
   let swap2 = to;
   currenFrom.value = swap2;
   currenTo.value = swap;
-  if (amount.value != 0) calExchange(swap2, swap);
+  if (amount.value != 0 && isToggle.value == false) calExchange(swap2, swap);
+  else if (amount.value != 0 && isToggle.value == true)
+    calExchangCrypto(swap2, swap);
+  else {
+  }
 };
 const remainingExchange = computed(() =>
   baseUSD.filter((currency) => currency.name != currenFrom.value)
