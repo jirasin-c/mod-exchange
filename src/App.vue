@@ -96,13 +96,16 @@ const switchCurren = (from, to) => {
   let swap2 = to;
   currenFrom.value = swap2;
   currenTo.value = swap;
-  calExchange(swap2, swap);
+  if (amount.value != 0) calExchange(swap2, swap);
 };
 const remainingExchange = computed(() =>
   baseUSD.filter((currency) => currency.name != currenFrom.value)
 );
 const isToggle = ref(false);
-const showCrypto = () => (isToggle.value = !isToggle.value);
+const showCrypto = () => {
+  isToggle.value = !isToggle.value;
+  resetValue();
+};
 const remainingExchangeCrypto = computed(() =>
   crypto.filter((currency) => currency.name != currenFrom.value)
 );
@@ -141,43 +144,53 @@ const resetValue = () => {
     id="exchange"
     style="margin-top: -26rem"
   >
+    <div style="text-align: center; margin-top: 2rem">
+      <button class="btn btn-info" @click="showCrypto" v-if="isToggle">
+        Exchang rate
+      </button>
+      <button class="btn btn-info" @click="showCrypto" v-else>
+        Cryptocurrency
+      </button>
+    </div>
     <h1 class="font-title text-center font-extrabold py-6">
       <div class="text-2xl lg:text-5xl text-white">Exchange Money</div>
     </h1>
     <!-- content -->
     <div
-      class="px-16 py-10 mt-4 card bg-base-200 flex justify-center item-center"
-      v-if="!isToggle"
+      class="px-16 md:px-20 py-10 mt-4 card bg-base-200 flex justify-center item-center shadow-2xl"
     >
       <div class="grid grid-cols-10 grid-rows-3">
         <!-- label1 col 1 -->
-        <label class="input-group flex justify-center col-start-1 col-span-3">
+        <label class="input-group col-span-3 md:w-11/12">
           <span>Amount</span>
           <input
             type="number"
             placeholder="type amount"
             v-model="amount"
-            class="input input-bordered w-2/3"
+            class="input input-bordered w-3/4"
           />
           <span>{{ currenFrom }}</span>
         </label>
         <!-- label2 col 1 -->
-        <label class="input-group flex justify-end col-span-3">
+        <label class="input-group col-span-3 md:w-11/12 md:mr-6">
           <span>From</span>
           <select
             name
             id
             v-model="currenFrom"
-            class="select select-bordered w-2/3"
+            class="select select-bordered w-3/4"
           >
-            <option v-for="(value, key, index) in baseUSD">
+            <option v-for="(value, key, index) in baseUSD" v-if="!isToggle">
+              {{ value.name }}
+            </option>
+            <option v-for="(value, key, index) in crypto" v-else>
               {{ value.name }}
             </option>
           </select>
           <span>{{ currenFrom }}</span>
         </label>
         <!-- label3 col 1 -->
-        <label class="flex xl:justify-center lg:ml-7"
+        <label class="flex justify-center"
           ><button
             @click="switchCurren(currenFrom, currenTo)"
             class="btn btn-secondary"
@@ -186,15 +199,24 @@ const resetValue = () => {
           </button>
         </label>
         <!-- label4 col 1 -->
-        <label class="input-group flex justify-center col-span-3">
+        <label class="input-group col-span-3 md:w-11/12">
           <span>To</span>
           <select
             name
             id
             v-model="currenTo"
-            class="select select-bordered w-2/3"
+            class="select select-bordered w-3/4"
           >
-            <option v-for="(value, key, index) in remainingExchange">
+            <option
+              v-for="(value, key, index) in remainingExchange"
+              v-if="!isToggle"
+            >
+              {{ value.name }}
+            </option>
+            <option
+              v-for="(value, key, index) in remainingExchangeCrypto"
+              v-else
+            >
               {{ value.name }}
             </option>
           </select>
@@ -217,6 +239,14 @@ const resetValue = () => {
             <button
               @click="calExchange(currenFrom, currenTo)"
               class="btn btn-primary"
+              v-if="!isToggle"
+            >
+              Convert
+            </button>
+            <button
+              @click="calExchangCrypto(currenFrom, currenTo)"
+              class="btn btn-primary"
+              v-else
             >
               Convert
             </button>
@@ -229,7 +259,7 @@ const resetValue = () => {
 
   <!-- exchange rate section -->
   <div class="container mx-auto flex justify-center mt-8">
-    <div class="px-16 py-2 card bg-base-200 flex">
+    <div class="px-16 py-2 card bg-base-200 flex shadow-2xl">
       <h1 class="font-title text-center font-extrabold mt-2">
         <div class="text-2xl lg:text-2xl">Rate Money</div>
       </h1>
@@ -277,7 +307,7 @@ const resetValue = () => {
       </div>
 
       <div
-        class="grid grid-cols-2 gap-4 mt-3 mb-3 text-center"
+        class="grid grid-cols-3 gap-4 mt-3 mb-3 text-center"
         v-for="(value, key, index) in crypto"
         v-else
       >
