@@ -3,18 +3,19 @@ import { ref, reactive, computed } from "vue";
 const isToggle = ref(false);
 const displaymode = () => {
   isToggle.value = !isToggle.value;
-  if (isToggle.value)
+  if (isToggle.value) {
     document.getElementsByTagName("html")[0].setAttribute("data-theme", "dark");
-  else
+  } else {
     document
       .getElementsByTagName("html")[0]
       .setAttribute("data-theme", "light");
+  }
 };
 </script>
 
 <template>
   <nav
-    class="navbar bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 mb-40 shadow-xl rounded-b-lg pb-64"
+    class="navbar bg-gradient-to-r from-cyan-500 to-blue-500 mb-40 shadow-xl rounded-b-lg pb-64"
   >
     <div class="navbar-start">
       <label for="my-drawer" class="btn btn-square btn-ghost drawer-button">

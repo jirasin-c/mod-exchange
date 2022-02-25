@@ -129,29 +129,11 @@ const resetValue = () => {
 </script>
 
 <template>
-  <!-- change function -->
-  <!-- <div style="text-align: center; margin-top: 2rem">
-    <button class="btn btn-info" @click="showCrypto" v-if="isToggle">
-      Exchang rate
-    </button>
-    <button class="btn btn-info" @click="showCrypto" v-else>
-      Cryptocurrency
-    </button>
-  </div> -->
-
   <div
     class="container mx-auto flex flex-col justify-center"
     id="exchange"
     style="margin-top: -26rem"
   >
-    <div style="text-align: center; margin-top: 2rem">
-      <button class="btn btn-info" @click="showCrypto" v-if="isToggle">
-        Exchang rate
-      </button>
-      <button class="btn btn-info" @click="showCrypto" v-else>
-        Cryptocurrency
-      </button>
-    </div>
     <h1 class="font-title text-center font-extrabold py-6">
       <div class="text-2xl lg:text-5xl text-white">Exchange Money</div>
     </h1>
@@ -160,6 +142,19 @@ const resetValue = () => {
       class="px-16 md:px-20 py-10 mt-4 card bg-base-200 flex justify-center item-center shadow-2xl"
     >
       <div class="grid grid-cols-10 grid-rows-3">
+        <!-- change function -->
+        <div class="col-span-10 flex justify-center">
+          <button
+            class="btn btn-info btn-sm"
+            @click="showCrypto"
+            v-if="isToggle"
+          >
+            Exchang rate
+          </button>
+          <button class="btn btn-info btn-sm" @click="showCrypto" v-else>
+            Cryptocurrency
+          </button>
+        </div>
         <!-- label1 col 1 -->
         <label class="input-group col-span-3 md:w-11/12">
           <span>Amount</span>
@@ -223,7 +218,7 @@ const resetValue = () => {
           <span>{{ currenTo }}</span>
         </label>
         <label class="label place-content-center col-span-10">
-          <span class="label-text text-xl">แปลงแล้ว</span>
+          <span class="label-text text-xl">Result</span>
         </label>
         <div class="col-span-10">
           <label class="input-group input-group-md place-content-center">
@@ -269,7 +264,7 @@ const resetValue = () => {
         <p class="px-32">Country</p>
       </div>
       <div
-        class="grid grid-cols-3 gap-4 mt-3 mb-3 text-center"
+        class="grid justify-items-center grid-cols-3 gap-4 mt-3 mb-3 text-center"
         v-for="(value, key, index) in baseUSD"
         v-if="!isToggle"
       >
@@ -290,15 +285,15 @@ const resetValue = () => {
             }).format(value.rate)
           }}
         </p>
-        <div>
+        <div class="btn-group">
           <button
-            class="btn btn-sm btn-active mr-5"
+            class="btn btn-sm btn-outline btn-info"
             @click="pushToFrom(value.name)"
           >
             From
           </button>
           <button
-            class="btn btn-sm btn btn-active"
+            class="btn btn-sm btn-outline btn-info"
             @click="pushToTo(value.name)"
           >
             To
@@ -307,7 +302,7 @@ const resetValue = () => {
       </div>
 
       <div
-        class="grid grid-cols-3 gap-4 mt-3 mb-3 text-center"
+        class="grid justify-items-center grid-cols-3 gap-4 mt-3 mb-3 text-center"
         v-for="(value, key, index) in crypto"
         v-else
       >
@@ -329,18 +324,20 @@ const resetValue = () => {
           }}
         </p>
         <div>
-          <button
-            class="btn btn-sm btn-active mr-5"
-            @click="pushToFrom(value.name)"
-          >
-            From
-          </button>
-          <button
-            class="btn btn-sm btn btn-active"
-            @click="pushToTo(value.name)"
-          >
-            To
-          </button>
+          <div class="btn-group">
+            <button
+              class="btn btn-sm btn-outline btn-info"
+              @click="pushToFrom(value.name)"
+            >
+              From
+            </button>
+            <button
+              class="btn btn-sm btn-outline btn-info"
+              @click="pushToTo(value.name)"
+            >
+              To
+            </button>
+          </div>
         </div>
       </div>
     </div>
