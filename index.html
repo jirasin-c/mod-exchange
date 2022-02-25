@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="cmyk">
 
 <head>
   <meta charset="UTF-8" />
@@ -9,18 +9,23 @@
 </head>
 
 <body>
-  <div class="navbar mb-2 shadow-lg bg-neutral text-neutral-content rounded-box">
-    <div class="flex-none px-2 mx-2">
-      <span class="text-lg font-bold">Mod X Change</span>
+  <div class="drawer h-screen">
+    <input id="my-drawer" type="checkbox" class="drawer-toggle" />
+    <div class="drawer-content">
+      <!-- content -->
+      <div id="navbar"></div>
+      <div id="app"></div>
     </div>
-    <div class="flex-1 px-2 mx-2">
-      <div class="items-stretch hidden lg:flex">
-        <a class="btn btn-ghost btn-sm rounded-btn" href="#exchange">Exchanges</a>
-        <a class="btn btn-ghost btn-sm rounded-btn" href="#card-flip">Card Flip</a>
-      </div>
+    <!-- side-bar -->
+    <div class="drawer-side">
+      <label for="my-drawer" class="drawer-overlay"></label>
+      <ul class="menu p-4 overflow-y-auto w-80 bg-base-100 text-base-content">
+        <!-- Sidebar content here -->
+        <li><a>Sidebar Item 1</a></li>
+        <li><a>Sidebar Item 2</a></li>
+      </ul>
     </div>
   </div>
-  <div id="app"></div>
   <script type="module" src="/src/main.js"></script>
 </body>
 

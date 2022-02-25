@@ -12,7 +12,7 @@ const baseUSD = reactive([
   {
     name: "THB",
     rate: 32.4575,
-    img: "images/THA.png",
+    img: "images/THB.png",
   },
   {
     name: "JPY",
@@ -66,9 +66,8 @@ const calExchange = (from, to) => {
   console.log(amount.value != "");
   let countryTo = baseUSD.filter((value) => value.name == [`${to}`])[0];
   let countryFrom = baseUSD.filter((value) => value.name == [`${from}`])[0];
-  if (amount.value != "") {
+  if (amount.value != 0) {
     tranferAmount.value = (amount.value * countryTo.rate) / countryFrom.rate;
-    document.getElementById("result").value = tranferAmount.value;
   } else {
     Swal.fire({
       icon: "error",
@@ -83,9 +82,8 @@ const calCrypto = (from, to) => {
   console.log(amount.value != "");
   let cryptoTo = crypto.filter((value) => value.name == [`${to}`])[0];
   let cryptoFrom = crypto.filter((value) => value.name == [`${from}`])[0];
-  if (amount.value != "") {
+  if (amount.value != 0) {
     tranferAmount.value = (amount.value * cryptoTo.rate) / cryptoFrom.rate;
-    document.getElementById("result").value = tranferAmount.value;
   } else {
     Swal.fire({
       icon: "error",
@@ -95,23 +93,18 @@ const calCrypto = (from, to) => {
   }
 };
 
+
 //fucntion switch currency
 const switchCurren = (from, to) => {
   let swap = from;
   let swap2 = to;
-  if (amount.value != "" && isCrypto.value != true) {
-    currenFrom.value = swap2;
-    currenTo.value = swap;
+  currenFrom.value = swap2;
+  currenTo.value = swap;
+  if (amount.value != 0 && isCrypto.value == false) {
     calExchange(swap2, swap);
-  } else if (amount.value != "" && isCrypto.value == true) {
-    currenFrom.value = swap2;
-    currenTo.value = swap;
+  } else if (amount.value != 0 && isCrypto.value == true) {
     calCrypto(swap2, swap);
-  } else {
-    currenFrom.value = swap2;
-    currenTo.value = swap;
   }
-
 };
 
 //computed remaining exchange currency
@@ -120,45 +113,38 @@ const remainingExchange = computed(() =>
 );
 
 //computed remaining crypto currency
-const remainingCrypto = computed(() =>
+const remainingExchangeCrypto = computed(() =>
   crypto.filter((currency) => currency.name != currenFrom.value)
 );
 
-//function show crypto or exchange
+//swap between exchange and crypto
 const showCrypto = () => {
-  console.log(isCrypto.value);
-  currenFrom.value = ""
-  currenTo.value = ""
-  amount.value = ""
-  tranferAmount.value = ""
-  isCrypto.value = !isCrypto.value
-  // if (isCrypto.value == true) {
-  //   document.getElementById("crypto").textContent = "exchange"
-  // } else {
-  //   document.getElementById("crypto").textContent = "cryptocurrency"
-  // }
-  console.log(isCrypto.value);
+  isCrypto.value = !isCrypto.value;
+  searchWord.value = ""
+  resetValue();
 };
 
-//function push name to input from
+//function push name of currency to calculate
 const pushToFrom = (nameFrom) => {
-  currenFrom.value = nameFrom
-}
-
-//function push name to input from
+  currenFrom.value = nameFrom;
+  searchWord.value = ""
+};
+//function push name of currency to calculate
 const pushToTo = (nameTo) => {
-  currenTo.value = nameTo
-}
+  currenTo.value = nameTo;
+  searchWord.value = ""
+};
 
+//reset the value on calculate section
 const resetValue = () => {
-  currenFrom.value = ""
-  currenTo.value = ""
-  amount.value = ""
+  currenFrom.value = "";
+  currenTo.value = "";
+  amount.value = "";
   console.log(tranferAmount.value);
-  tranferAmount.value = ""
-  document.getElementById("result").value = tranferAmount.value;
-}
+  tranferAmount.value = "";
+};
 
+//function search the currency name each country
 const filterSearch = computed(() => {
   if (isCrypto.value != true) {
     return baseUSD.filter((currWord) => currWord.name.toLocaleLowerCase().includes(searchWord.value))
@@ -166,130 +152,110 @@ const filterSearch = computed(() => {
     return crypto.filter((currWord) => currWord.name.toLocaleLowerCase().includes(searchWord.value))
   }
 })
-
 </script>
 
 <template>
-  <!-- swap button section -->
-  <div class="flex justify-center mt-5">
-    <button class="btn btn-outline btn-info" @click="showCrypto" v-if="!isCrypto">$ cryptocurrency</button>
-    <button class="btn btn-outline btn-info" @click="showCrypto" v-else>$ exchange</button>
-  </div>
-
-  <!-- exchange section -->
-  <div class="container mx-auto flex justify-center mt-10" id="exchange">
-    <div class="pb-10 pl-10 pr-10 pt-7 card bg-base-200 flex justify-center" v-if="!isCrypto">
-      <h1 class="flex justify-center mb-6 text-xl font-bold">Exchange</h1>
-      <label class="input-group">
-        <span class="text-center">Amount</span>
-        <input
-          type="number"
-          placeholder="type amount"
-          v-model="amount"
-          class="input input-bordered"
-        />
-        <span class="text-center">{{ currenFrom }}</span>
-      </label>
-      <div class="grid grid-cols-3 gap-x-5">
-        <label class="label">
-          <span class="label-text">From</span>
+  <!-- Calculate exchange section -->
+  <div
+    class="container mx-auto flex flex-col justify-center"
+    id="exchange"
+    style="margin-top: -26rem"
+  >
+    <h1 class="font-title text-center font-extrabold py-6">
+      <div class="text-2xl lg:text-5xl text-white">Exchange Money</div>
+    </h1>
+    <!-- content -->
+    <div
+      class="px-16 md:px-20 py-10 mt-4 card bg-base-200 flex justify-center item-center shadow-2xl"
+    >
+      <div class="grid grid-cols-10 grid-rows-3">
+        <!-- change function -->
+        <div class="col-span-10 flex justify-center">
+          <button class="btn btn-info btn-sm" @click="showCrypto" v-if="isCrypto">$ Exchang rate</button>
+          <button class="btn btn-info btn-sm" @click="showCrypto" v-else>$ Cryptocurrency</button>
+        </div>
+        <!-- label1 col 1 -->
+        <label class="input-group col-span-3 md:w-11/12">
+          <span>Amount</span>
+          <input
+            type="number"
+            placeholder="type amount"
+            v-model="amount"
+            class="input input-bordered w-3/4"
+          />
+          <span>{{ currenFrom }}</span>
         </label>
-
-        <label class="label col-start-3">
-          <span class="label-text">To</span>
+        <!-- label2 col 1 -->
+        <label class="input-group col-span-3 md:w-11/12 md:mr-6">
+          <span>From</span>
+          <select name id v-model="currenFrom" class="select select-bordered w-3/4">
+            <option v-for="(value, key, index) in baseUSD" v-if="!isCrypto">{{ value.name }}</option>
+            <option v-for="(value, key, index) in crypto" v-else>{{ value.name }}</option>
+          </select>
+          <span>{{ currenFrom }}</span>
         </label>
-        <select name id v-model="currenFrom" class="select select-bordered w-full">
-          <option v-for="(value, key, index) in baseUSD">{{ value.name }}</option>
-        </select>
-        <button @click="switchCurren(currenFrom, currenTo)" class="btn btn-secondary">Switch</button>
-        <select name id v-model="currenTo" class="select select-bordered w-full">
-          <option v-for="(value, key, index) in remainingExchange">{{ value.name }}</option>
-        </select>
-        <div class="form-control col-span-3">
-          <label class="label place-content-center">
-            <span class="label-text">แปลงแล้ว</span>
-          </label>
+        <!-- label3 col 1 -->
+        <label class="flex justify-center">
+          <button @click="switchCurren(currenFrom, currenTo)" class="btn btn-secondary">Switch</button>
+        </label>
+        <!-- label4 col 1 -->
+        <label class="input-group col-span-3 md:w-11/12">
+          <span>To</span>
+          <select name id v-model="currenTo" class="select select-bordered w-3/4">
+            <option
+              v-for="(value, key, index) in remainingExchange"
+              v-if="!isCrypto"
+            >{{ value.name }}</option>
+            <option v-for="(value, key, index) in remainingExchangeCrypto" v-else>{{ value.name }}</option>
+          </select>
+          <span>{{ currenTo }}</span>
+        </label>
+        <label class="label place-content-center col-span-10">
+          <span class="label-text text-xl">Result</span>
+        </label>
+        <div class="col-span-10">
           <label class="input-group input-group-md place-content-center">
             <input
               type="number"
               id="result"
               pointer-events="none"
-              class="input input-bordered"
+              class="input input-bordered w-1/3"
               maxlength="10"
+              v-model="tranferAmount"
             />
             <span>{{ currenTo }}</span>
             <button
               @click="calExchange(currenFrom, currenTo)"
-              class="btn btn-primary mx-auto"
+              class="btn btn-primary"
+              v-if="!isCrypto"
             >Convert</button>
-            <button class="btn btn-outline btn-warning mx-auto" @click="resetValue">Reset</button>
-          </label>
-        </div>
-      </div>
-    </div>
-    <div class="pb-10 pl-10 pr-10 pt-7 card bg-base-200 flex justify-center" v-else>
-      <h1 class="flex justify-center mb-6 text-xl font-bold">Crypto</h1>
-      <label class="input-group">
-        <span>Amount</span>
-        <input
-          type="number"
-          placeholder="type amount"
-          v-model="amount"
-          class="input input-bordered"
-        />
-        <span>{{ currenFrom }}</span>
-      </label>
-      <div class="grid grid-cols-3 gap-x-5">
-        <label class="label">
-          <span class="label-text">From</span>
-        </label>
-
-        <label class="label col-start-3">
-          <span class="label-text">To</span>
-        </label>
-        <select name id v-model="currenFrom" class="select select-bordered w-full">
-          <option v-for="(value, key, index) in crypto">{{ value.name }}</option>
-        </select>
-        <button @click="switchCurren(currenFrom, currenTo)" class="btn btn-secondary">Switch</button>
-        <select name id v-model="currenTo" class="select select-bordered w-full">
-          <option v-for="(value, key, index) in remainingCrypto">{{ value.name }}</option>
-        </select>
-        <div class="form-control col-span-3">
-          <label class="label place-content-center">
-            <span class="label-text">แปลงแล้ว</span>
-          </label>
-          <label class="input-group input-group-md place-content-center">
-            <input
-              type="number"
-              id="result"
-              pointer-events="none"
-              class="input input-bordered"
-              maxlength="10"
-            />
-            <span>{{ currenTo }}</span>
-            <button @click="calCrypto(currenFrom, currenTo)" class="btn btn-primary mx-auto">Convert</button>
-            <button class="btn btn-outline btn-warning mx-auto" @click="resetValue">Reset</button>
+            <button @click="calCrypto(currenFrom, currenTo)" class="btn btn-primary" v-else>Convert</button>
+            <button class="btn btn-warning" @click="resetValue">Reset</button>
           </label>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- exchange rate section -->
+  <!-- Exchange rate section -->
   <div class="container mx-auto flex justify-center mt-8">
-    <div class="px-10 card bg-base-200 flex">
-      <div class="flex justify-center">
-        <h1 class="mt-3 text-lg font-bold text-violet-500">Exchange Rates</h1>
-        <div class="form-control">
-          <input type="text" placeholder="Search" class="input input-bordered" v-model="searchWord" />
-        </div>
-      </div>
+    <div class="px-16 py-2 card bg-base-200 flex shadow-2xl">
+      <h1 class="font-title text-center font-extrabold mt-2">
+        <div class="text-2xl lg:text-2xl">Rate Money</div>
+      </h1>
+      <input
+        type="text"
+        placeholder="Search currency . . ."
+        class="input input w-64 max-w-xs input-sm"
+        v-model="searchWord"
+      />
       <div class="grid grid-cols-3 gap-4 mt-3">
-        <p class="px-16 col-start-1 font-bold">Currency</p>
-        <p class="px-16 col-start-2 font-bold">Amount</p>
+        <p class="px-32">Currency</p>
+        <p class="px-32">Amount</p>
+        <p class="px-32">Country</p>
       </div>
       <div
-        class="grid grid-cols-3 gap-4 mt-3 mb-3 text-center"
+        class="grid justify-items-center grid-cols-3 gap-4 mt-3 mb-3 text-center"
         v-for="(value, key, index) in filterSearch"
         v-if="!isCrypto"
       >
@@ -310,13 +276,14 @@ const filterSearch = computed(() => {
             }).format(value.rate)
           }}
         </p>
-        <div>
-          <button class="btn btn-sm btn-active mr-5" @click="pushToFrom(value.name)">From</button>
-          <button class="btn btn-sm btn btn-active" @click="pushToTo(value.name)">To</button>
+        <div class="btn-group">
+          <button class="btn btn-sm btn-outline btn-info" @click="pushToFrom(value.name)">From</button>
+          <button class="btn btn-sm btn-outline btn-info" @click="pushToTo(value.name)">To</button>
         </div>
       </div>
+
       <div
-        class="grid grid-cols-3 gap-4 mt-3 mb-3 text-center"
+        class="grid justify-items-center grid-cols-3 gap-4 mt-3 mb-3 text-center"
         v-for="(value, key, index) in filterSearch"
         v-else
       >
@@ -338,8 +305,10 @@ const filterSearch = computed(() => {
           }}
         </p>
         <div>
-          <button class="btn btn-active btn-sm mr-5" @click="pushToFrom(value.name)">From</button>
-          <button class="btn btn-active btn-sm" @click="pushToTo(value.name)">To</button>
+          <div class="btn-group">
+            <button class="btn btn-sm btn-outline btn-info" @click="pushToFrom(value.name)">From</button>
+            <button class="btn btn-sm btn-outline btn-info" @click="pushToTo(value.name)">To</button>
+          </div>
         </div>
       </div>
     </div>
