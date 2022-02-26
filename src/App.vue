@@ -94,7 +94,6 @@ const calCrypto = (from, to) => {
   }
 };
 
-
 //fucntion switch currency
 const switchCurren = (from, to) => {
   let swap = from;
@@ -121,19 +120,19 @@ const remainingExchangeCrypto = computed(() =>
 //swap between exchange and crypto
 const showCrypto = () => {
   isCrypto.value = !isCrypto.value;
-  searchWord.value = ""
+  searchWord.value = "";
   resetValue();
 };
 
 //function push name of currency to calculate
 const pushToFrom = (nameFrom) => {
   currenFrom.value = nameFrom;
-  searchWord.value = ""
+  searchWord.value = "";
 };
 //function push name of currency to calculate
 const pushToTo = (nameTo) => {
   currenTo.value = nameTo;
-  searchWord.value = ""
+  searchWord.value = "";
 };
 
 //reset the value on calculate section
@@ -148,11 +147,15 @@ const resetValue = () => {
 //function search the currency name each country
 const filterSearch = computed(() => {
   if (isCrypto.value != true) {
-    return baseUSD.filter((currWord) => currWord.name.toLocaleLowerCase().includes(searchWord.value))
+    return baseUSD.filter((currWord) =>
+      currWord.name.toLocaleLowerCase().includes(searchWord.value)
+    );
   } else {
-    return crypto.filter((currWord) => currWord.name.toLocaleLowerCase().includes(searchWord.value))
+    return crypto.filter((currWord) =>
+      currWord.name.toLocaleLowerCase().includes(searchWord.value)
+    );
   }
-})
+});
 
 //toggle dark or light mode
 const displaymode = () => {
@@ -160,35 +163,39 @@ const displaymode = () => {
   if (isToggle.value) {
     document.getElementsByTagName("html")[0].setAttribute("data-theme", "dark");
   } else {
-    document.getElementsByTagName("html")[0].setAttribute("data-theme", "light");
+    document
+      .getElementsByTagName("html")[0]
+      .setAttribute("data-theme", "light");
   }
 };
 
 //date and time function
-const currentDate = ref(new Date())
-const currentTime = ref(new Date())
+const currentDate = ref(new Date());
+const currentTime = ref(new Date());
 const clock = reactive({
   date: currentDate,
   time: currentTime,
-})
+});
 setInterval(() => {
-  clock.date = new Date()
-  clock.time = new Date()
-}, 1000)
+  clock.date = new Date();
+  clock.time = new Date();
+}, 1000);
 const time = computed(() => {
-  const hours = clock.time.getHours()
-  const minutes = clock.time.getMinutes()
-  const seconds = clock.time.getSeconds()
-  return `${hours}:${minutes}:${seconds}`
-})
+  const hours = clock.time.getHours();
+  const minutes = clock.time.getMinutes();
+  const seconds = clock.time.getSeconds();
+  return `${hours}:${minutes}:${seconds}`;
+});
 const currentDateString = computed(() => {
-  return clock.date.toLocaleDateString()
-})
+  return clock.date.toLocaleDateString();
+});
 </script>
 
 <template>
   <!-- Nav bar section -->
-  <nav class="navbar bg-gradient-to-r from-cyan-500 to-blue-500 mb-40 shadow-xl rounded-b-lg pb-64">
+  <nav
+    class="navbar bg-gradient-to-r from-cyan-500 to-blue-500 mb-40 shadow-xl rounded-b-lg pb-64"
+  >
     <div class="navbar-start">
       <label for="my-drawer" class="btn btn-square btn-ghost drawer-button">
         <svg
@@ -208,7 +215,7 @@ const currentDateString = computed(() => {
       <input
         type="text"
         placeholder="Type here . . ."
-        class="input input-ghost w-full max-w-xs input-sm"
+        class="input w-full max-w-xs input-sm text-black"
       />
     </div>
     <div class="navbar-center">
@@ -219,6 +226,19 @@ const currentDateString = computed(() => {
         <p>{{ currentDateString }}</p>
         <p>{{ time }}</p>
       </div>
+      <div class="mx-2">
+        <!-- moon icon -->
+        <svg
+          class="swap-off fill-current w-8 h-8"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Zm-9.5,6.69A8.14,8.14,0,0,1,7.08,5.22v.27A10.15,10.15,0,0,0,17.22,15.63a9.79,9.79,0,0,0,2.1-.22A8.11,8.11,0,0,1,12.14,19.73Z"
+          />
+        </svg>
+      </div>
+
       <input
         type="checkbox"
         class="toggle mt-1 toggle-md toggle-primary"
@@ -231,22 +251,9 @@ const currentDateString = computed(() => {
           class="swap-on fill-current w-8 h-8"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
-          v-if="!isToggle"
         >
           <path
             d="M5.64,17l-.71.71a1,1,0,0,0,0,1.41,1,1,0,0,0,1.41,0l.71-.71A1,1,0,0,0,5.64,17ZM5,12a1,1,0,0,0-1-1H3a1,1,0,0,0,0,2H4A1,1,0,0,0,5,12Zm7-7a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V4A1,1,0,0,0,12,5ZM5.64,7.05a1,1,0,0,0,.7.29,1,1,0,0,0,.71-.29,1,1,0,0,0,0-1.41l-.71-.71A1,1,0,0,0,4.93,6.34Zm12,.29a1,1,0,0,0,.7-.29l.71-.71a1,1,0,1,0-1.41-1.41L17,5.64a1,1,0,0,0,0,1.41A1,1,0,0,0,17.66,7.34ZM21,11H20a1,1,0,0,0,0,2h1a1,1,0,0,0,0-2Zm-9,8a1,1,0,0,0-1,1v1a1,1,0,0,0,2,0V20A1,1,0,0,0,12,19ZM18.36,17A1,1,0,0,0,17,18.36l.71.71a1,1,0,0,0,1.41,0,1,1,0,0,0,0-1.41ZM12,6.5A5.5,5.5,0,1,0,17.5,12,5.51,5.51,0,0,0,12,6.5Zm0,9A3.5,3.5,0,1,1,15.5,12,3.5,3.5,0,0,1,12,15.5Z"
-          />
-        </svg>
-
-        <!-- moon icon -->
-        <svg
-          class="swap-off fill-current w-8 h-8"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          v-else
-        >
-          <path
-            d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Zm-9.5,6.69A8.14,8.14,0,0,1,7.08,5.22v.27A10.15,10.15,0,0,0,17.22,15.63a9.79,9.79,0,0,0,2.1-.22A8.11,8.11,0,0,1,12.14,19.73Z"
           />
         </svg>
       </div>
@@ -287,8 +294,16 @@ const currentDateString = computed(() => {
       <div class="grid grid-cols-10 grid-rows-3">
         <!-- change function -->
         <div class="col-span-10 flex justify-center">
-          <button class="btn btn-info btn-sm" @click="showCrypto" v-if="isCrypto">$ Exchang rate</button>
-          <button class="btn btn-info btn-sm" @click="showCrypto" v-else>$ Cryptocurrency</button>
+          <button
+            class="btn btn-info btn-sm"
+            @click="showCrypto"
+            v-if="isCrypto"
+          >
+            $ Exchang rate
+          </button>
+          <button class="btn btn-info btn-sm" @click="showCrypto" v-else>
+            $ Cryptocurrency
+          </button>
         </div>
         <!-- label1 col 1 (Amount section)-->
         <label class="input-group col-span-3 md:w-11/12">
@@ -297,32 +312,58 @@ const currentDateString = computed(() => {
             type="number"
             placeholder="type amount"
             v-model="amount"
-            class="input input-bordered w-3/4"
+            class="input input-bordered w-3/4 text-center text-xl"
           />
           <span>{{ currenFrom }}</span>
         </label>
         <!-- label2 col 1 (CurrencyFrom section)-->
         <label class="input-group col-span-3 md:w-11/12 md:mr-6">
           <span>From</span>
-          <select name id v-model="currenFrom" class="select select-bordered w-3/4">
-            <option v-for="(value, key, index) in baseUSD" v-if="!isCrypto">{{ value.name }}</option>
-            <option v-for="(value, key, index) in crypto" v-else>{{ value.name }}</option>
+          <select
+            name
+            id
+            v-model="currenFrom"
+            class="select select-bordered w-3/4 text-xl"
+          >
+            <option v-for="(value, key, index) in baseUSD" v-if="!isCrypto">
+              {{ value.name }}
+            </option>
+            <option v-for="(value, key, index) in crypto" v-else>
+              {{ value.name }}
+            </option>
           </select>
           <span>{{ currenFrom }}</span>
         </label>
         <!-- label3 col 1 (Swap button section) -->
         <label class="flex justify-center">
-          <button @click="switchCurren(currenFrom, currenTo)" class="btn btn-secondary">Switch</button>
+          <button
+            @click="switchCurren(currenFrom, currenTo)"
+            class="btn btn-secondary"
+          >
+            Switch
+          </button>
         </label>
         <!-- label4 col 1 (CurrencyTo  section)-->
         <label class="input-group col-span-3 md:w-11/12">
           <span>To</span>
-          <select name id v-model="currenTo" class="select select-bordered w-3/4">
+          <select
+            name
+            id
+            v-model="currenTo"
+            class="select select-bordered w-3/4 text-xl"
+          >
             <option
               v-for="(value, key, index) in remainingExchange"
               v-if="!isCrypto"
-            >{{ value.name }}</option>
-            <option v-for="(value, key, index) in remainingExchangeCrypto" v-else>{{ value.name }}</option>
+            >
+              {{ value.name }}
+            </option>
+            <option
+              v-for="(value, key, index) in remainingExchangeCrypto"
+              v-else
+            >
+              {{ value.name }}
+            </option>
           </select>
           <span>{{ currenTo }}</span>
         </label>
@@ -336,7 +377,7 @@ const currentDateString = computed(() => {
               type="number"
               id="result"
               pointer-events="none"
-              class="input input-bordered w-1/3"
+              class="input input-bordered w-1/3 text-center text-xl"
               maxlength="10"
               v-model="tranferAmount"
             />
@@ -345,8 +386,16 @@ const currentDateString = computed(() => {
               @click="calExchange(currenFrom, currenTo)"
               class="btn btn-primary"
               v-if="!isCrypto"
-            >Convert</button>
-            <button @click="calCrypto(currenFrom, currenTo)" class="btn btn-primary" v-else>Convert</button>
+            >
+              Convert
+            </button>
+            <button
+              @click="calCrypto(currenFrom, currenTo)"
+              class="btn btn-primary"
+              v-else
+            >
+              Convert
+            </button>
             <button class="btn btn-warning" @click="resetValue">Reset</button>
           </label>
         </div>
@@ -361,12 +410,15 @@ const currentDateString = computed(() => {
         <div class="text-2xl lg:text-2xl">Rate Money</div>
       </h1>
       <!-- Search section -->
-      <input
-        type="text"
-        placeholder="Search currency . . ."
-        class="input input w-64 max-w-xs input-sm"
-        v-model="searchWord"
-      />
+      <div class="md:flex md:justify-end mb-1 mt-1">
+        <input
+          type="text"
+          placeholder="Search currency . . ."
+          class="input input w-64 max-w-xs input-sm"
+          v-model="searchWord"
+        />
+      </div>
+
       <!-- Table Head -->
       <div class="grid grid-cols-3 gap-4 mt-3">
         <p class="px-32 font-semibold">Currency</p>
@@ -397,8 +449,18 @@ const currentDateString = computed(() => {
           }}
         </p>
         <div class="btn-group">
-          <button class="btn btn-sm btn-outline btn-info" @click="pushToFrom(value.name)">From</button>
-          <button class="btn btn-sm btn-outline btn-info" @click="pushToTo(value.name)">To</button>
+          <button
+            class="btn btn-sm btn-outline btn-info"
+            @click="pushToFrom(value.name)"
+          >
+            From
+          </button>
+          <button
+            class="btn btn-sm btn-outline btn-info"
+            @click="pushToTo(value.name)"
+          >
+            To
+          </button>
         </div>
       </div>
       <!-- Table Body -->
@@ -426,8 +488,18 @@ const currentDateString = computed(() => {
         </p>
         <div>
           <div class="btn-group">
-            <button class="btn btn-sm btn-outline btn-info" @click="pushToFrom(value.name)">From</button>
-            <button class="btn btn-sm btn-outline btn-info" @click="pushToTo(value.name)">To</button>
+            <button
+              class="btn btn-sm btn-outline btn-info"
+              @click="pushToFrom(value.name)"
+            >
+              From
+            </button>
+            <button
+              class="btn btn-sm btn-outline btn-info"
+              @click="pushToTo(value.name)"
+            >
+              To
+            </button>
           </div>
         </div>
       </div>
