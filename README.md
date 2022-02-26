@@ -14,12 +14,15 @@ This template should help get you started developing with Vue 3 in Vite. The tem
 ``` bash
 npm install
 ```
-Install css Framework tailwind and daisyUi Tailwind CSS Components
+- Install css Framework tailwind and daisyUi Tailwind CSS Components
+[![tailwind Status](https://tailwindcss.com/docs/installation)
+[![daisyUi Status](https://daisyui.com/)
 ``` bash
 npm npm install -D tailwindcss postcss autoprefixer
 npm i daisyui
 ```
 ใช้ vue-sweetalert2 ในการทำ alert <br>
+[![vue-sweetalert2 Status](https://www.npmjs.com/package/vue-sweetalert2)
 <p align="center">
  <img src="https://raw.githubusercontent.com/avil13/vue-sweetalert2/master/packages/vue-sweetalert2/assets/vue-sweetalert2.gif" />
 </p>
@@ -34,7 +37,6 @@ npm run dev
 
 # INT203-Group5
 
-<p align="center">
  | No. | Name              | Student ID   |
 |:---:|-------------------|--------------|
 |  1  |  กัณฑ์พงษ์ ศรีสุธาภัทร์   | 63130500004  |
@@ -42,5 +44,4 @@ npm run dev
 |  3  | ชินภัค เจริญศิริ | 63130500021 |
 |  4  | ทรรศภูมิ คงนิธิเฉลิม  | 63130500044 |
 |  5  |  ธรกฤษ แคนขา  | 63130500045 |
-</p>
 
