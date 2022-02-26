@@ -4,11 +4,34 @@
 </p>
 
 ## About Mod-Exchange
-เป็น Web App ที่แปลงค่าเงินจากสกุลเงินประเทศๆ นึง ไปยังอีกสกุลเงินประเทศนึง
+เป็น Web App ที่แปลงค่าเงินจากสกุลเงินประเทศๆ นึง ไปยังอีกสกุลเงินประเทศนึง โดยรวมไปถึงสกุลเงินแบบ Digital หรือที่เรียกว่า Crypto ด้วย
 <p align="center">
  <img src="https://user-images.githubusercontent.com/68856607/155845030-ec5b94d2-8db3-43a8-ab3a-9d111b28b695.gif" />
 </p>
+<br>
+### Function ภายในเว็บ
+- Seach ชื่อสกุลเงินภายใน Web
+<p align="center">
+ <img src="https://user-images.githubusercontent.com/68856607/155846536-4fb3260d-cbc3-4f8d-a8ca-54e008cdf520.gif" />
+</p>
+<br>
+- Error เมื่อใส่ข้อมูลที่ต้องใช้ในการคำนวณไม่ครบ
+<p align="center">
+ <img src="https://user-images.githubusercontent.com/68856607/155846631-0f5b8e49-d7d7-4cd0-887e-30c232b789ce.giff" />
+</p>
+<br>
+- เปลี่ยนสกุลเงินเป็น Crypto
+<p align="center">
+ <img src="https://user-images.githubusercontent.com/68856607/155846660-cdb4e427-1a9f-45d8-bed4-fc0ebc4a3650.gif" />
+</p>
+<br>
+- Dark mode
+<p align="center">
+ <img src="https://user-images.githubusercontent.com/68856607/155846675-768e1442-3078-4de5-8fd7-6861f87bacba.gif" />
+</p>
 
+### Ref.
+-- Project Web Application ของกลุ่มพวกเราได้แรงบันดาลใจการทำมาจาก [REF](https://www.xe.com/currencyconverter/)
 
 # Vue 3 + Vite     ![This is an image](https://github.com/thanakritcankha/mod-exchange/blob/main/public/favicon.ico)
 This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
