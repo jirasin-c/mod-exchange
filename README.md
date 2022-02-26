@@ -31,7 +31,8 @@
 </p>
 
 ### Ref.
--- Project Web Application ของกลุ่มพวกเราได้แรงบันดาลใจการทำมาจาก [REF](https://www.xe.com/currencyconverter/)
+- Project Web Application ของกลุ่มพวกเราได้แรงบันดาลใจการทำมาจาก <br>
+[Xe Currency Converter](https://www.xe.com/currencyconverter/)
 
 # Vue 3 + Vite     ![This is an image](https://github.com/thanakritcankha/mod-exchange/blob/main/public/favicon.ico)
 This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
