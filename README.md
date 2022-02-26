@@ -16,7 +16,7 @@ Install css Framework tailwind
 npm npm install -D tailwindcss postcss autoprefixer
 ```
 ใช้ vue-sweetalert2 ในการทำ alert 
-![image](https://user-images.githubusercontent.com/68836892/155842744-cc044153-2cba-4df9-9fd1-8f534f91ee57.png)
+![image](https://raw.githubusercontent.com/avil13/vue-sweetalert2/master/packages/vue-sweetalert2/assets/vue-sweetalert2.gif)
 ``` bash
 npm install -S vue-sweetalert2 
 ```
