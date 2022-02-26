@@ -435,11 +435,11 @@ const currentDateString = computed(() => {
           <span class="avatar">
             <span class="w-8 rounded flex items-center mr-10">
               <img :src="`${value.img}`" class="mr-2" />
-              <p>{{ value.name }}</p>
+              <p class="text-xl">{{ value.name }}</p>
             </span>
           </span>
         </p>
-        <p>
+        <p class="text-xl">
           {{
             new Intl.NumberFormat("en-US", {
               style: "currency",
@@ -473,11 +473,11 @@ const currentDateString = computed(() => {
           <span class="avatar">
             <span class="w-8 rounded flex items-center mr-10">
               <img :src="`${value.img}`" class="mr-2" />
-              <p>{{ value.name }}</p>
+              <p class="text-xl">{{ value.name }}</p>
             </span>
           </span>
         </p>
-        <p>
+        <p class="text-xl">
           {{
             new Intl.NumberFormat("en-US", {
               style: "currency",
