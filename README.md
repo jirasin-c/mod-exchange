@@ -17,7 +17,7 @@
 
 - Error เมื่อใส่ข้อมูลที่ต้องใช้ในการคำนวณไม่ครบ
 <p align="center">
- <img src="https://user-images.githubusercontent.com/68856607/155846631-0f5b8e49-d7d7-4cd0-887e-30c232b789ce.giff" />
+ <img src="https://user-images.githubusercontent.com/68856607/155846755-e0e72781-978d-4228-a708-26a2787a09a4.gif" />
 </p>
 
 - เปลี่ยนสกุลเงินเป็น Crypto
