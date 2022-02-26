@@ -5,7 +5,7 @@
 
 ## About Mod-Exchange
 เป็น Web App ที่แปลงค่าเงินจากสกุลเงินประเทศๆ นึง ไปยังอีกสกุลเงินประเทศนึง
-https://user-images.githubusercontent.com/68856607/155845030-ec5b94d2-8db3-43a8-ab3a-9d111b28b695.gif
+[GIF MOD](https://user-images.githubusercontent.com/68856607/155845030-ec5b94d2-8db3-43a8-ab3a-9d111b28b695.gif)
 
 
 # Vue 3 + Vite     ![This is an image](https://github.com/thanakritcankha/mod-exchange/blob/main/public/favicon.ico)
