@@ -14,17 +14,17 @@
 <p align="center">
  <img src="https://user-images.githubusercontent.com/68856607/155846536-4fb3260d-cbc3-4f8d-a8ca-54e008cdf520.gif" />
 </p>
-<br>
+
 - Error เมื่อใส่ข้อมูลที่ต้องใช้ในการคำนวณไม่ครบ
 <p align="center">
  <img src="https://user-images.githubusercontent.com/68856607/155846631-0f5b8e49-d7d7-4cd0-887e-30c232b789ce.giff" />
 </p>
-<br>
+
 - เปลี่ยนสกุลเงินเป็น Crypto
 <p align="center">
  <img src="https://user-images.githubusercontent.com/68856607/155846660-cdb4e427-1a9f-45d8-bed4-fc0ebc4a3650.gif" />
 </p>
-<br>
+
 - Dark mode
 <p align="center">
  <img src="https://user-images.githubusercontent.com/68856607/155846675-768e1442-3078-4de5-8fd7-6861f87bacba.gif" />
