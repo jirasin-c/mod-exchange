@@ -8,7 +8,7 @@
 <p align="center">
  <img src="https://user-images.githubusercontent.com/68856607/155845030-ec5b94d2-8db3-43a8-ab3a-9d111b28b695.gif" />
 </p>
-<br>
+
 ### Function ภายในเว็บ
 - Seach ชื่อสกุลเงินภายใน Web
 <p align="center">
