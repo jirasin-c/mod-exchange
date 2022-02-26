@@ -1,4 +1,6 @@
-<center>![image](https://media.giphy.com/media/W56iRg3BTRZJvzKGu5/giphy.gif)</center>
+<p align="center">
+ <img src="https://media.giphy.com/media/W56iRg3BTRZJvzKGu5/giphy.gif" />
+</p>
 # Vue 3 + Vite
 
 This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
@@ -12,9 +14,10 @@ This template should help get you started developing with Vue 3 in Vite. The tem
 ``` bash
 npm install
 ```
-Install css Framework tailwind
+Install css Framework tailwind and daisyUi Tailwind CSS Components
 ``` bash
 npm npm install -D tailwindcss postcss autoprefixer
+npm i daisyui
 ```
 ใช้ vue-sweetalert2 ในการทำ alert <br>
 ![image](https://raw.githubusercontent.com/avil13/vue-sweetalert2/master/packages/vue-sweetalert2/assets/vue-sweetalert2.gif)
