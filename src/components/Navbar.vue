@@ -1,14 +1,16 @@
 <script setup>
 import { ref, reactive, computed } from "vue";
-// const isToggle = ref(false);
-// const displaymode = () => {
-//   isToggle.value = !isToggle.value;
-//   if (isToggle.value) {
-//     document.getElementsByTagName("html")[0].setAttribute("data-theme", "dark");
-//   } else {
-//     document.getElementsByTagName("html")[0].setAttribute("data-theme", "light");
-//   }
-// };
+const isToggle = ref(false);
+const displaymode = () => {
+  isToggle.value = !isToggle.value;
+  if (isToggle.value) {
+    document.getElementsByTagName("html")[0].setAttribute("data-theme", "dark");
+  } else {
+    document
+      .getElementsByTagName("html")[0]
+      .setAttribute("data-theme", "light");
+  }
+};
 </script>
 
 <template>
