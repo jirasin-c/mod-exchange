@@ -10,7 +10,7 @@
 </p>
 
 ### Function ภายในเว็บ
-- Seach ชื่อสกุลเงินภายใน Web
+- Seach ชื่อสกุลเงิน
 <p align="center">
  <img src="https://user-images.githubusercontent.com/68856607/155846536-4fb3260d-cbc3-4f8d-a8ca-54e008cdf520.gif" />
 </p>
@@ -20,7 +20,7 @@
  <img src="https://user-images.githubusercontent.com/68856607/155846755-e0e72781-978d-4228-a708-26a2787a09a4.gif" />
 </p>
 
-- เปลี่ยนสกุลเงินเป็น Crypto
+- เปลี่ยนสกุลเงินเป็น Crypto และการ Reset value
 <p align="center">
  <img src="https://user-images.githubusercontent.com/68856607/155846660-cdb4e427-1a9f-45d8-bed4-fc0ebc4a3650.gif" />
 </p>
