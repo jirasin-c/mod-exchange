@@ -6,7 +6,16 @@ This template should help get you started developing with Vue 3 in Vite. The tem
 
 - [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
 
+## Installation and Usage
 
+``` bash
+npm install
+npm npm install -D tailwindcss postcss autoprefixer
+//install alert
+npm install -S vue-sweetalert2
+npm run dev
+```
+ 
 
 # INT203-Group5
 
