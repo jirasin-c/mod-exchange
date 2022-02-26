@@ -10,10 +10,19 @@ This template should help get you started developing with Vue 3 in Vite. The tem
 
 ``` bash
 npm install
+```
+Install css Framework tailwind
+``` bash
 npm npm install -D tailwindcss postcss autoprefixer
-//install alert
-npm install -S vue-sweetalert2
-npm run dev
+```
+ใช้ vue-sweetalert2 ในการทำ alert 
+![image](https://user-images.githubusercontent.com/68836892/155842744-cc044153-2cba-4df9-9fd1-8f534f91ee57.png)
+``` bash
+npm install -S vue-sweetalert2 
+```
+Run Project
+``` bash
+npm run dev 
 ```
  
 
