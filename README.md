@@ -20,7 +20,9 @@ npm npm install -D tailwindcss postcss autoprefixer
 npm i daisyui
 ```
 ใช้ vue-sweetalert2 ในการทำ alert <br>
-![image](https://raw.githubusercontent.com/avil13/vue-sweetalert2/master/packages/vue-sweetalert2/assets/vue-sweetalert2.gif)
+<p align="center">
+ <img src="https://raw.githubusercontent.com/avil13/vue-sweetalert2/master/packages/vue-sweetalert2/assets/vue-sweetalert2.gif" />
+</p>
 ``` bash
 npm install -S vue-sweetalert2 
 ```
