@@ -1,8 +1,10 @@
+# Mod-Exchange
 <p align="center">
  <img src="https://media.giphy.com/media/W56iRg3BTRZJvzKGu5/giphy.gif" />
 </p>
-# Vue 3 + Vite
 
+
+# Vue 3 + Vite     ![This is an image](https://github.com/thanakritcankha/mod-exchange/blob/main/public/favicon.ico)
 This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
 
 ## Recommended IDE Setup
@@ -14,23 +16,17 @@ This template should help get you started developing with Vue 3 in Vite. The tem
 ``` bash
 npm install
 ```
-- Install css Framework tailwind and daisyUi Tailwind CSS Components
-[![tailwind](https://tailwindcss.com/docs/installation)
-[![daisyUi](https://daisyui.com/)
+- Install css Framework [tailwind](https://tailwindcss.com/docs/installation) and [daisyUi](https://daisyui.com/) Tailwind CSS Components
 ``` bash
 npm npm install -D tailwindcss postcss autoprefixer
 npm i daisyui
 ```
-ใช้ vue-sweetalert2 ในการทำ alert <br>
-[![vue-sweetalert2](https://www.npmjs.com/package/vue-sweetalert2)
-<p align="center">
- <img src="https://raw.githubusercontent.com/avil13/vue-sweetalert2/master/packages/vue-sweetalert2/assets/vue-sweetalert2.gif" />
-</p>
-``` bash
+- ใช้ [vue-sweetalert2](https://www.npmjs.com/package/vue-sweetalert2) ในการทำ alert <br>
+``` sh
 npm install -S vue-sweetalert2 
 ```
-Run Project
-``` bash
+- Run Project
+``` sh
 npm run dev 
 ```
  
