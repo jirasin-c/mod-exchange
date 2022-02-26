@@ -5,7 +5,9 @@
 
 ## About Mod-Exchange
 เป็น Web App ที่แปลงค่าเงินจากสกุลเงินประเทศๆ นึง ไปยังอีกสกุลเงินประเทศนึง
-[GIF MOD](https://user-images.githubusercontent.com/68856607/155845030-ec5b94d2-8db3-43a8-ab3a-9d111b28b695.gif)
+<p align="center">
+ <img src="https://user-images.githubusercontent.com/68856607/155845030-ec5b94d2-8db3-43a8-ab3a-9d111b28b695.gif" />
+</p>
 
 
 # Vue 3 + Vite     ![This is an image](https://github.com/thanakritcankha/mod-exchange/blob/main/public/favicon.ico)
@@ -16,7 +18,7 @@ This template should help get you started developing with Vue 3 in Vite. The tem
 - [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
 
 ## Installation and Usage
-
+- Install node_module
 ``` bash
 npm install
 ```
