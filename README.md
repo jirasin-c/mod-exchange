@@ -46,6 +46,7 @@ This template should help get you started developing with Vue 3 in Vite. The tem
 ``` bash
 npm install
 ```
+กลุ่มพวกเราได้มีการใช้ DaisyUI และ Sweetalert 2 ในการทำ Project ครั้งนี้ จึงมีสิ่งที่จำเป็นต้อง Install เพิ่มดังนี้
 - Install css Framework [tailwind](https://tailwindcss.com/docs/installation) and [daisyUi](https://daisyui.com/) Tailwind CSS Components
 ``` bash
 npm npm install -D tailwindcss postcss autoprefixer
