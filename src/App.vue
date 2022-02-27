@@ -126,6 +126,18 @@ const resetValue = () => {
   tranferAmount.value = "";
   document.getElementById("result").value = tranferAmount.value;
 };
+
+const search = ref("");
+// const searchfilter = () => {
+//   let choosen =  baseUSD.filter((search.value.toLowerCase) => value.name.toLowerCase == search.value.toLocaleLowerCase)
+
+// }
+
+let searchfilter = () => {
+  baseUSD.filter((value) => {
+    value.name.toLocaleLowerCase().includes(search.value);
+  });
+};
 </script>
 
 <template>
@@ -139,7 +151,18 @@ const resetValue = () => {
     </h1>
     <!-- content -->
     <div
-      class="px-16 md:px-20 py-10 mt-4 card bg-base-200 flex justify-center item-center shadow-2xl"
+      class="
+        px-16
+        md:px-20
+        py-10
+        mt-4
+        card
+        bg-base-200
+        flex
+        justify-center
+        item-center
+        shadow-2xl
+      "
     >
       <div class="grid grid-cols-10 grid-rows-3">
         <!-- change function -->
@@ -258,51 +281,71 @@ const resetValue = () => {
       <h1 class="font-title text-center font-extrabold mt-2">
         <div class="text-2xl lg:text-2xl">Rate Money</div>
       </h1>
+      <input v-model="search" placeholder="find.." :keydown="searchfilter()" />
       <div class="grid grid-cols-3 gap-4 mt-3">
         <p class="px-32">Currency</p>
         <p class="px-32">Amount</p>
         <p class="px-32">Country</p>
       </div>
       <div
-        class="grid justify-items-center grid-cols-3 gap-4 mt-3 mb-3 text-center"
+        class="
+          grid
+          justify-items-center
+          grid-cols-3
+          gap-4
+          mt-3
+          mb-3
+          text-center
+        "
         v-for="(value, key, index) in baseUSD"
         v-if="!isToggle"
       >
-        <p>
-          <span class="avatar">
-            <span class="w-8 rounded flex items-center mr-10">
-              <img :src="`${value.img}`" class="mr-2" />
-              <p>{{ value.name }}</p>
+        <div>
+          <p>
+            <span class="avatar">
+              <span class="w-8 rounded flex items-center mr-10">
+                <img :src="`${value.img}`" class="mr-2" />
+                <p>{{ value.name }}</p>
+              </span>
             </span>
-          </span>
-        </p>
-        <p>
-          {{
-            new Intl.NumberFormat("en-US", {
-              style: "currency",
-              currency: "USD",
-              minimumFractionDigits: 5,
-            }).format(value.rate)
-          }}
-        </p>
-        <div class="btn-group">
-          <button
-            class="btn btn-sm btn-outline btn-info"
-            @click="pushToFrom(value.name)"
-          >
-            From
-          </button>
-          <button
-            class="btn btn-sm btn-outline btn-info"
-            @click="pushToTo(value.name)"
-          >
-            To
-          </button>
+          </p>
+          <p>
+            {{
+              new Intl.NumberFormat("en-US", {
+                style: "currency",
+                currency: "USD",
+                minimumFractionDigits: 5,
+              }).format(value.rate)
+            }}
+          </p>
+
+          <div class="btn-group">
+            <button
+              class="btn btn-sm btn-outline btn-info"
+              @click="pushToFrom(value.name)"
+            >
+              From
+            </button>
+            <button
+              class="btn btn-sm btn-outline btn-info"
+              @click="pushToTo(value.name)"
+            >
+              To
+            </button>
+          </div>
         </div>
       </div>
 
       <div
-        class="grid justify-items-center grid-cols-3 gap-4 mt-3 mb-3 text-center"
+        class="
+          grid
+          justify-items-center
+          grid-cols-3
+          gap-4
+          mt-3
+          mb-3
+          text-center
+        "
         v-for="(value, key, index) in crypto"
         v-else
       >
