@@ -1,211 +1,226 @@
 <script setup>
-import { ref, reactive, computed } from 'vue'
-import Swal from 'sweetalert2'
+import { ref, reactive, computed } from "vue";
+import Swal from "sweetalert2";
 
 //data currency
 const baseUSD = reactive([
   {
-    name: 'USD',
+    name: "USD",
     rate: 1,
-    img: 'images/USA.png',
+    img: "images/USA.png",
   },
   {
-    name: 'THB',
+    name: "THB",
     rate: 32.4575,
-    img: 'images/THB.png',
+    img: "images/THB.png",
   },
   {
-    name: 'JPY',
+    name: "JPY",
     rate: 115.688,
-    img: 'images/JPY.png',
+    img: "images/JPY.png",
   },
   {
-    name: 'CNY',
+    name: "CNY",
     rate: 6.35765,
-    img: 'images/CNY.png',
+    img: "images/CNY.png",
   },
   {
-    name: 'KRW',
+    name: "KRW",
     rate: 1197.141,
-    img: 'images/KRW.png',
+    img: "images/KRW.png",
   },
-])
+]);
 const crypto = reactive([
   {
-    name: 'ETH',
+    name: "ETH",
     rate: 0.000379,
-    img: 'images/ETH.png',
+    img: "images/ETH.png",
   },
   {
-    name: 'BTC',
+    name: "BTC",
     rate: 0.0000261,
-    img: 'images/BTC.png',
+    img: "images/BTC.png",
   },
   {
-    name: 'DOGE',
+    name: "DOGE",
     rate: 13.68,
-    img: 'images/DOGE.png',
+    img: "images/DOGE.png",
   },
   {
-    name: 'BNB',
+    name: "BNB",
     rate: 0.002623,
-    img: 'images/BNB.png',
+    img: "images/BNB.png",
   },
-])
+]);
 
 //ref var for v-model
-const currenFrom = ref('')
-const currenTo = ref('')
-const amount = ref('')
-const tranferAmount = ref('')
-const isCrypto = ref(false)
-const searchWord = ref('')
-const isToggle = ref(false)
+const currenFrom = ref("");
+const currenTo = ref("");
+const amount = ref("");
+const tranferAmount = ref("");
+const isCrypto = ref(false);
+const searchWord = ref("");
+const isToggle = ref(false);
 
 //function calculate exchange rate
 const calExchange = (from, to) => {
-  console.log(amount.value != '')
-  let countryTo = baseUSD.filter((value) => value.name == [`${to}`])[0]
-  let countryFrom = baseUSD.filter((value) => value.name == [`${from}`])[0]
+  console.log(amount.value != "");
+  let countryTo = baseUSD.filter((value) => value.name == [`${to}`])[0];
+  let countryFrom = baseUSD.filter((value) => value.name == [`${from}`])[0];
   if (amount.value != 0) {
-    tranferAmount.value = (amount.value * countryTo.rate) / countryFrom.rate
+    tranferAmount.value = (amount.value * countryTo.rate) / countryFrom.rate;
   } else {
     Swal.fire({
-      icon: 'error',
-      title: 'ขออภัย...',
-      text: 'โปรดกรอกข้อมูลในช่องว่างให้เรียบร้อย',
-    })
+      icon: "error",
+      title: "ขออภัย...",
+      text: "โปรดกรอกข้อมูลในช่องว่างให้เรียบร้อย",
+    });
   }
-}
+};
 
 //function calculate crypto rate
 const calCrypto = (from, to) => {
-  console.log(amount.value != '')
-  let cryptoTo = crypto.filter((value) => value.name == [`${to}`])[0]
-  let cryptoFrom = crypto.filter((value) => value.name == [`${from}`])[0]
+  console.log(amount.value != "");
+  let cryptoTo = crypto.filter((value) => value.name == [`${to}`])[0];
+  let cryptoFrom = crypto.filter((value) => value.name == [`${from}`])[0];
   if (amount.value != 0) {
-    tranferAmount.value = (amount.value * cryptoTo.rate) / cryptoFrom.rate
+    tranferAmount.value = (amount.value * cryptoTo.rate) / cryptoFrom.rate;
   } else {
     Swal.fire({
-      icon: 'error',
-      title: 'ขออภัย...',
-      text: 'โปรดกรอกข้อมูลในช่องว่างให้เรียบร้อย',
-    })
+      icon: "error",
+      title: "ขออภัย...",
+      text: "โปรดกรอกข้อมูลในช่องว่างให้เรียบร้อย",
+    });
   }
-}
+};
 
 //fucntion switch currency
 const switchCurren = (from, to) => {
-  let swap = from
-  let swap2 = to
-  currenFrom.value = swap2
-  currenTo.value = swap
+  let swap = from;
+  let swap2 = to;
+  currenFrom.value = swap2;
+  currenTo.value = swap;
   if (amount.value != 0 && isCrypto.value == false) {
-    calExchange(swap2, swap)
+    calExchange(swap2, swap);
   } else if (amount.value != 0 && isCrypto.value == true) {
-    calCrypto(swap2, swap)
+    calCrypto(swap2, swap);
   }
-}
+};
 
 //computed remaining exchange currency
 const remainingExchange = computed(() =>
   baseUSD.filter((currency) => currency.name != currenFrom.value)
-)
+);
 
 //computed remaining crypto currency
 const remainingExchangeCrypto = computed(() =>
   crypto.filter((currency) => currency.name != currenFrom.value)
-)
+);
 
 //swap between exchange and crypto
 const showCrypto = () => {
-  isCrypto.value = !isCrypto.value
-  searchWord.value = ''
-  resetValue()
-}
+  isCrypto.value = !isCrypto.value;
+  searchWord.value = "";
+  resetValue();
+};
 
 //function push name of currency to calculate
 const pushToFrom = (nameFrom) => {
-  currenFrom.value = nameFrom
-  searchWord.value = ''
-}
+  currenFrom.value = nameFrom;
+  searchWord.value = "";
+};
 //function push name of currency to calculate
 const pushToTo = (nameTo) => {
-  currenTo.value = nameTo
-  searchWord.value = ''
-}
+  currenTo.value = nameTo;
+  searchWord.value = "";
+};
 
 //reset the value on calculate section
 const resetValue = () => {
-  currenFrom.value = ''
-  currenTo.value = ''
-  amount.value = ''
-  console.log(tranferAmount.value)
-  tranferAmount.value = ''
-}
+  currenFrom.value = "";
+  currenTo.value = "";
+  amount.value = "";
+  console.log(tranferAmount.value);
+  tranferAmount.value = "";
+};
 
 //function search the currency name each country
 const filterSearch = computed(() => {
   if (isCrypto.value != true) {
     return baseUSD.filter((currWord) =>
-      currWord.name.toLocaleLowerCase().includes(searchWord.value)
-    )
+      currWord.name
+        .toLocaleLowerCase()
+        .includes(searchWord.value.toLocaleLowerCase())
+    );
   } else {
     return crypto.filter((currWord) =>
-      currWord.name.toLocaleLowerCase().includes(searchWord.value)
-    )
+      currWord.name
+        .toLocaleLowerCase()
+        .includes(searchWord.value.toLocaleLowerCase())
+    );
   }
-})
+});
 
 //toggle dark or light mode
 const displaymode = () => {
-  isToggle.value = !isToggle.value
+  isToggle.value = !isToggle.value;
   if (isToggle.value) {
-    document.getElementsByTagName('html')[0].setAttribute('data-theme', 'dark')
+    document.getElementsByTagName("html")[0].setAttribute("data-theme", "dark");
   } else {
-    document.getElementsByTagName('html')[0].setAttribute('data-theme', 'light')
+    document
+      .getElementsByTagName("html")[0]
+      .setAttribute("data-theme", "light");
   }
-}
+};
 
 //date and time function
-const currentDate = ref(new Date())
-const currentTime = ref(new Date())
+const currentDate = ref(new Date());
+const currentTime = ref(new Date());
 const currentWeekDay = computed(() => {
   let weekDay = [
-    'Sunday',
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday',
-  ]
-  return weekDay[currentTime.value.getDay()]
-})
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  return weekDay[currentTime.value.getDay()];
+});
 
 const clock = reactive({
   date: currentDate,
   time: currentTime,
-})
+});
 setInterval(() => {
-  clock.date = new Date()
-  clock.time = new Date()
-}, 1000)
+  clock.date = new Date();
+  clock.time = new Date();
+}, 1000);
 const time = computed(() => {
-  const hours = clock.time.getHours()
-  const minutes = clock.time.getMinutes()
-  const seconds = clock.time.getSeconds()
-  return `${hours}:${minutes}:${seconds}`
-})
+  const hours = clock.time.getHours();
+  const minutes = clock.time.getMinutes();
+  const seconds = clock.time.getSeconds();
+  return `${hours}:${minutes}:${seconds}`;
+});
 const currentDateString = computed(() => {
-  return clock.date.toLocaleDateString()
-})
+  return clock.date.toLocaleDateString();
+});
 </script>
 
 <template>
   <!-- Nav bar section -->
   <nav
-    class="navbar bg-gradient-to-r from-cyan-500 to-blue-500 mb-40 shadow-xl rounded-b-lg pb-64"
+    class="
+      navbar
+      bg-gradient-to-r
+      from-cyan-500
+      to-blue-500
+      mb-40
+      shadow-xl
+      rounded-b-lg
+      pb-64
+    "
   >
     <div class="navbar-start">
       <label for="my-drawer" class="btn btn-square btn-ghost drawer-button">
@@ -301,7 +316,18 @@ const currentDateString = computed(() => {
     </h1>
     <!-- content -->
     <div
-      class="px-16 md:px-20 py-10 mt-4 card bg-base-200 flex justify-center item-center shadow-2xl"
+      class="
+        px-16
+        md:px-20
+        py-10
+        mt-4
+        card
+        bg-base-200
+        flex
+        justify-center
+        item-center
+        shadow-2xl
+      "
     >
       <div class="grid grid-cols-10 grid-rows-3">
         <!-- change function -->
@@ -439,7 +465,15 @@ const currentDateString = computed(() => {
       </div>
       <!-- Table Body -->
       <div
-        class="grid justify-items-center grid-cols-3 gap-4 mt-3 mb-3 text-center"
+        class="
+          grid
+          justify-items-center
+          grid-cols-3
+          gap-4
+          mt-3
+          mb-3
+          text-center
+        "
         v-for="(value, key, index) in filterSearch"
         v-if="!isCrypto"
       >
@@ -453,8 +487,8 @@ const currentDateString = computed(() => {
         </p>
         <p class="text-xl">
           {{
-            new Intl.NumberFormat('en-US', {
-              style: 'currency',
+            new Intl.NumberFormat("en-US", {
+              style: "currency",
               currency: `${value.name}`,
               minimumFractionDigits: 5,
             }).format(value.rate)
@@ -477,7 +511,15 @@ const currentDateString = computed(() => {
       </div>
       <!-- Table Body -->
       <div
-        class="grid justify-items-center grid-cols-3 gap-4 mt-3 mb-3 text-center"
+        class="
+          grid
+          justify-items-center
+          grid-cols-3
+          gap-4
+          mt-3
+          mb-3
+          text-center
+        "
         v-for="(value, key, index) in filterSearch"
         v-else
       >
@@ -491,9 +533,9 @@ const currentDateString = computed(() => {
         </p>
         <p class="text-xl">
           {{
-            new Intl.NumberFormat('en-US', {
-              style: 'currency',
-              currency: 'USD',
+            new Intl.NumberFormat("en-US", {
+              style: "currency",
+              currency: "USD",
               minimumFractionDigits: 5,
             }).format(value.rate)
           }}
@@ -520,12 +562,12 @@ const currentDateString = computed(() => {
 </template>
 
 <style>
-input[type='number']::-webkit-inner-spin-button,
-input[type='number']::-webkit-outer-spin-button {
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-input[id='result'] {
+input[id="result"] {
   pointer-events: none;
 }
 </style>
